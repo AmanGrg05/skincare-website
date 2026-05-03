@@ -76,6 +76,15 @@
             </article>
         </section>
 
+        <section class="newsletter">
+            <h2>Never miss out!!</h2>
+            <form class="newsletter-form">
+                <input type="email" placeholder="email address" required/>
+                <button type="submit">Sign up</button>
+            </form>
+            <p>sign up to get notified about latest releases, sales and so on.</p>
+        </section>
 
+         <%@ include file="/WEB-INF/templates/footer.html" %>
     </main>
 </html>
