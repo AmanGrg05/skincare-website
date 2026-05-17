@@ -2,3 +2,56 @@
     margin: 0;
     padding: 0;
 }
+
+/*css for header section*/
+header {
+    background-color: #ffff;
+}
+/* styling the nav-links */
+.nav-links {
+    list-style: none;
+    display: inline-block;
+}
+/*css for anchor tag*/
+nav ol li a {
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+    padding: 10px;
+}
+/*CSS for hovering over links*/
+nav ol li a:hover {
+    color: whitesmoke;
+    background-color: rgb(34, 147, 245);
+    border-radius: 10px;
+}
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+/*css for login button*/
+.login-button {
+    background-color: #222222;
+    padding: 15px 32px;
+    border: none;
+    color: whitesmoke;
+    border-radius: 10px;
+    font-size: 20px;
+}
+/*css for footer section*/
+footer {
+    background-color: #222222;
+    text-align: center;
+    color: whitesmoke;
+    padding: 50px;
+}
+input {
+    font-size: 30px;
+    border-radius: 10px;
+    border-style: none;
+}
+/* css for li which is descendant of ol  */
+ol li {
+    text-decoration: none;
+    display: inline-block;
+}
