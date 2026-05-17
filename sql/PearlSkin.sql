@@ -111,3 +111,18 @@ CREATE TABLE Review (
                         FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
                             ON DELETE CASCADE
 );
+-- ==========================================
+-- PAYMENT TABLE
+-- ==========================================
+CREATE TABLE Payment (
+                         PaymentID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                         OrderID INT NOT NULL,
+                         PaymentDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                         Amount DECIMAL(10,2) NOT NULL,
+                         PaymentMethod VARCHAR(50) NOT NULL,
+                         PaymentStatus VARCHAR(50) DEFAULT 'Pending',
+                         TransactionReference VARCHAR(255),
+
+                         FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+                             ON DELETE CASCADE
+);
