@@ -10,23 +10,22 @@
 
 <body>
     <main>
-        <main>
-            <div class="hero">
-                <div class="left-section">
-                    <div class="left-section-wrapper">
-                        <h4>Nourish your skin.</h4>
-                        <br>
-                        <h4>Elevate your glow</h4>
-                        <p>Discover skincare that brings out
-                            <br>your natural radiance</p>
-                        <a href="" class="button">Shop now &rarr;</a>
-                    </div>
-                </div>
-                <div class="right-section">
-                    <img src="${pageContext.request.contextPath}/static/images/main-section.png" alt="">
+        <div class="hero">
+            <div class="left-section">
+                <div class="left-section-wrapper">
+                    <h4>Nourish your skin.</h4>
+                    <br>
+                    <h4>Elevate your glow</h4>
+                    <p>Discover skincare that brings out
+                        <br>your natural radiance</p>
+                    <a href="" class="button">Shop now &rarr;</a>
                 </div>
             </div>
-            <div class="section-title">Our Best Sellers</div>
+            <div class="right-section">
+                <img src="${pageContext.request.contextPath}/static/images/main-section.png" alt="">
+            </div>
+        </div>
+        <div class="section-title">Our Best Sellers</div>
             <section class="Best-Seller">
                 <div class="best-seller-left-section">
                     <div class="best-seller-text">
