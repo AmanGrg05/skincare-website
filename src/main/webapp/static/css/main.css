@@ -10,7 +10,10 @@ body {
     overflow-x: hidden;
 }
 
-
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
 
 footer {
     background-color: #E8DED4;
