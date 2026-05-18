@@ -9,6 +9,43 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     overflow-x: hidden;
 }
+header {
+    width: 100%;
+    background-color: #FAF7F2;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #2B2B2B;
+}
+
+nav ul li a {
+    text-decoration: none;
+    padding: 5px;
+    color: #2B2B2B;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    gap: 0px 10px;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 30px;
+}
+.log-button{
+    text-decoration: none;
+    display: inline-block;
+    background-color: #5C4033;
+    padding: 14px 28px;
+    color: #FAF7F2;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+}
 
 .dashboard {
     display: flex;
