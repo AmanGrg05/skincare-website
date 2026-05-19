@@ -30,20 +30,20 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String name = request.getParameter("username");
-        String password = request.getParameter("password");
+        String Email = request.getParameter("email");
+        String PasswordHash = request.getParameter("password");
 
-        User user = userDao.findByName(name);
+        User user = userDao.findByName(Email);
 
         if (user == null) {
-            request.setAttribute("error", "Invalid username or password");
+            request.setAttribute("error", "Invalid Email or password");
             request.getRequestDispatcher("/WEB-INF/views/login.jsp")
                     .forward(request, response);
             return;
         }
 
-        if (!PasswordUtil.checkPassword(password, user.getPassword())) {
-            request.setAttribute("error", "Invalid username or password");
+        if (!PasswordUtil.checkPassword(PasswordHash, user.getPasswordHash())) {
+            request.setAttribute("error", "Passwords don't match");
             request.getRequestDispatcher("/WEB-INF/views/login.jsp")
                     .forward(request, response);
             return;
