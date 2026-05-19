@@ -21,7 +21,7 @@ CREATE TABLE User (
                       UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                       Name VARCHAR(100) NOT NULL,
                       Email VARCHAR(100) NOT NULL UNIQUE,
-                      PasswordHash VARCHAR(255) NOT NULL,
+                      Password VARCHAR(255) NOT NULL,
                       PhoneNumber VARCHAR(20),
                       Address TEXT,
                       SkinType VARCHAR(50),

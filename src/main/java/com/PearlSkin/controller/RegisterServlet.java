@@ -28,6 +28,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
@@ -40,6 +41,9 @@ public class RegisterServlet extends HttpServlet {
         }
         if (!ValidationUtil.isValidEmail(email)) {
             errors.append("Email should be in valid format. ");
+        }
+        if (!ValidationUtil.isValidPhoneNumber(phoneNumber)) {
+            errors.append("Phone number should be in valid format. ");
         }
         if (!ValidationUtil.isValidPassword(password)) {
             errors.append("Password must be 7+ characters with uppercase, atleast 1 number and symbol. ");
