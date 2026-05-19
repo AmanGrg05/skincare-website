@@ -9,6 +9,8 @@
 </jsp:include>
 
 <body>
+    <jsp:include page="/WEB-INF/templates/header.jsp" />
+
     <main>
         <div class="hero">
             <div class="left-section">
@@ -100,6 +102,7 @@
                 </div>
             </section>
     </main>
+    <%@ include file="/WEB-INF/templates/footer.html" %>
 </body>
 
 </html>
