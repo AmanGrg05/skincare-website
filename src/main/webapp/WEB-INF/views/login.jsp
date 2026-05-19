@@ -1,75 +1,76 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html lang="en">
     <jsp:include page="/WEB-INF/templates/head.jsp">
-        <jsp:param name="title" value="Pearl Skil - Login" />
-        <jsp:param name="cssFile" value="auth" />
+        <jsp:param name="title" value="PearlSkin — Login" />
+        <jsp:param name="cssFile" value="login" />
     </jsp:include>
 
 <body>
-<div class="main-container">
+
+<div class="login-page">
 
     <!-- LEFT SIDE -->
+    <div class="login-left">
 
-    <div class="left-section">
-
-        <div class="logo">
-            PearlSkin
+        <div class="login-header">
+            <h1>Pearl Skin</h1>
         </div>
 
-        <form action="LoginServlet" method="post">
+        <div class="login-form-container">
 
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email">
-            </div>
+            <form action="${pageContext.request.contextPath}/login" method="post">
 
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password">
-            </div>
+                <h2>Login</h2>
 
-            <div class="forgot">
-                <a href="#">Forgot Password?</a>
-            </div>
+                <c:if test="${not empty error}">
+                    <p class="error">
+                        <c:out value="${error}" />
+                    </p>
+                </c:if>
 
-            <button type="submit" class="login-btn">
-                Login
-            </button>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="text"
+                           name="username"
+                           placeholder="Enter your email"
+                           value="<c:out value='${param.username}' default='${cookie.username.value}' />"
+                           required />
+                </div>
 
-        </form>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           required />
+                </div>
 
-        <div class="social-icons">
+                <p class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </p>
 
-            <div class="icon-box"></div>
+                <button type="submit">Login</button>
 
-            <div class="icon-box"></div>
+                <p class="register-link">
+                    Don't have an account?
+                    <a href="${pageContext.request.contextPath}/register">
+                        Register
+                    </a>
+                </p>
 
-            <div class="icon-box"></div>
+            </form>
 
-        </div>
-
-        <div class="signup">
-            Create New Account
         </div>
 
     </div>
 
     <!-- RIGHT SIDE -->
-
-    <div class="right-section">
-
-        <div class="image-box">
-
-            <!-- Add image later -->
-
-        </div>
-
+    <div class="login-right">
+        <img src="${pageContext.request.contextPath}/static/images/main-section.png"
+             alt="Login Illustration" />
     </div>
 
 </div>

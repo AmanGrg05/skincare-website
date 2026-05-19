@@ -38,24 +38,24 @@ public class RegisterServlet extends HttpServlet {
                 || name.length() < 4) {
             errors.append("Name should be alphanumeric, starting with letter and be atleast 4 characters. ");
         }
-        if (!ValidationUtil.isValidEmail(email)){
+        if (!ValidationUtil.isValidEmail(email)) {
             errors.append("Email should be in valid format. ");
         }
-        if (!ValidationUtil.isValidPassword(password)){
+        if (!ValidationUtil.isValidPassword(password)) {
             errors.append("Password must be 7+ characters with uppercase, atleast 1 number and symbol. ");
         }
-        if (!ValidationUtil.doPasswordsMatch(password, confirmPassword)){
+        if (!ValidationUtil.doPasswordsMatch(password, confirmPassword)) {
             errors.append("Passwords do not match. ");
         }
 
         if (!errors.isEmpty()) {
-            request.setAttribute("errors", errors.toString() .trim());
+            request.setAttribute("errors", errors.toString().trim());
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
 
         String hashedPassword = PasswordUtil.getHashPassword(password);
-        User user= new User(name, email, hashedPassword);
+        User user = new User(name, email, hashedPassword);
 
         boolean success = userDao.addUser(user);
 
