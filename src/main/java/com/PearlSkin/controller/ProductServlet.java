@@ -64,7 +64,7 @@ public class ProductServlet extends HttpServlet {
                 OrderItem item = cart.get(productId);
                 item.setQuantity(item.getQuantity() +1);
         } else {
-                OrderItem item = new OrderItem();
+                OrderItem item = new OrderItem(0,productId,1,product.getPrice());
                 item.setProductId(productId);
                 item.setQuantity(1);
                 item.setUnitPrice(product.getPrice());
