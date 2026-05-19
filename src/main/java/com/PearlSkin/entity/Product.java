@@ -95,9 +95,6 @@ public class Product {
     }
 
     // Setters
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
