@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,29 +19,33 @@
                 <!-- STATS CARDS -->
                 <section class="stats-cards">
                     <div class="stat-card">
-                        <div class="stat-info">
-                            <p class="stat-label">Total Revenue</p>
-                            <h3 class="stat-value">Rs. 00,000</h3>
-                        </div>
+                        <p class="stat-label">Total Revenue</p>
+                        <h3 class="stat-value">
+                            Rs. <c:out value="${totalRevenue}" default="0"/>
+                        </h3>
                     </div>
+
                     <div class="stat-card">
-                        <div class="stat-info">
-                            <p class="stat-label">Total Orders</p>
-                            <h3 class="stat-value">0,000</h3>
-                        </div>
+                        <p class="stat-label">Total Orders</p>
+                        <h3 class="stat-value">
+                            <c:out value="${totalOrders}" default="0"/>
+                        </h3>
                     </div>
+
                     <div class="stat-card">
-                        <div class="stat-info">
-                            <p class="stat-label">Total Customers</p>
-                            <h3 class="stat-value">0,000</h3>
-                        </div>
+                        <p class="stat-label">Total Customers</p>
+                        <h3 class="stat-value">
+                            <c:out value="${totalCustomers}" default="0"/>
+                        </h3>
                     </div>
+
                     <div class="stat-card">
-                        <div class="stat-info">
-                            <p class="stat-label">Total Products</p>
-                            <h3 class="stat-value">00</h3>
-                        </div>
+                        <p class="stat-label">Total Products</p>
+                        <h3 class="stat-value">
+                            <c:out value="${totalProducts}" default="0"/>
+                        </h3>
                     </div>
+
                 </section>
 
                 <!-- BOTTOM SECTION -->
@@ -52,7 +57,9 @@
                             <h3>Recent Orders</h3>
                             <a href="#" class="view-all">View all</a>
                         </div>
+
                         <table class="orders-table">
+
                             <thead>
                             <tr>
                                 <th>Order ID</th>
@@ -61,15 +68,34 @@
                                 <th>Amount</th>
                             </tr>
                             </thead>
+
                             <tbody>
-                            <tr>
-                                <td>#0000</td>
-                                <td>Customer Name</td>
-                                <td>Product Name</td>
-                                <td>Rs. 0,000</td>
-                            </tr>
+
+                            <c:choose>
+                                <c:when test="${empty recentOrders}">
+                                    <tr>
+                                        <td colspan="4">No recent orders found</td>
+                                    </tr>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <c:forEach var="order" items="${recentOrders}">
+
+                                        <tr>
+                                            <td>#<c:out value="${order.orderId}" /></td>
+                                            <td><c:out value="${order.customerName}" /></td>
+                                            <td><c:out value="${order.productName}" /></td>
+                                            <td>Rs. <c:out value="${order.amount}" /></td>
+                                        </tr>
+
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+
                             </tbody>
+
                         </table>
+
                     </section>
 
                     <!-- TOP PRODUCTS -->
@@ -79,14 +105,42 @@
                             <a href="#" class="view-all">View all</a>
                         </div>
                         <ul class="product-list">
-                            <li class="product-item">
-                                <div class="product-rank">1</div>
-                                <div class="product-details">
-                                    <p class="product-name">Product Name</p>
-                                    <p class="product-sales">000 sold</p>
-                                </div>
-                                <div class="product-revenue">Rs. 00,000</div>
-                            </li>
+                            <c:choose>
+                                <c:when test="${empty topProducts}">
+                                    <li>No products found</li>
+                                </c:when>
+
+                                <c:otherwise>
+
+                                    <c:forEach var="product" items="${topProducts}" varStatus="status">
+
+                                        <li class="product-item">
+
+                                            <div class="product-rank">
+                                                <c:out value="${status.index + 1}" />
+                                            </div>
+
+                                            <div class="product-details">
+                                                <p class="product-name">
+                                                    <c:out value="${product.productName}" />
+                                                </p>
+
+                                                <p class="product-sales">
+                                                    <c:out value="${product.totalSold}" /> sold
+                                                </p>
+                                            </div>
+
+                                            <div class="product-revenue">
+                                                Rs. <c:out value="${product.revenue}" />
+                                            </div>
+
+                                        </li>
+
+                                    </c:forEach>
+
+                                </c:otherwise>
+                            </c:choose>
+
                         </ul>
                     </section>
 

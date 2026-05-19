@@ -1,6 +1,7 @@
 package com.PearlSkin.dao;
 
 import com.PearlSkin.entity.Product;
+import com.PearlSkin.entity.TopProduct;
 
 import java.util.ArrayList;
 
@@ -12,5 +13,6 @@ public interface ProductDao {
 //    Product getProductById(int id);
 //    ArrayList<Product> getProductsByName(String name);
     ArrayList<Product> getFeaturedProducts();
-
+    int countProducts();
+    ArrayList<TopProduct> getTopProducts(int limit);
 }

@@ -3,8 +3,10 @@ package com.PearlSkin.dao;
 import com.PearlSkin.entity.Product;
 
 import java.sql.PreparedStatement;
-import com.PearlSkin.utils.DatabaseConnection;
 
+import com.PearlSkin.entity.TopProduct;
+import com.PearlSkin.utils.DatabaseConnection;
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,5 +51,80 @@ public class ProductDaoImpl implements ProductDao {
 
         return products;
     }
+
+    @Override
+    public int countProducts() {
+
+        int count = 0;
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+
+            String sql = "SELECT COUNT(*) FROM Product";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error count products: " + e.getMessage());
+
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        return count;
     }
+
+    @Override
+    public ArrayList<TopProduct> getTopProducts(int limit) {
+
+        ArrayList<TopProduct> topProducts = new ArrayList<>();
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+
+            String sql = """
+                SELECT p.ProductName,
+                       SUM(oi.Quantity) AS total_sold,
+                       SUM(oi.Quantity * oi.Price) AS revenue
+                FROM Product p
+                JOIN OrderItem oi ON p.ProductID = oi.ProductID
+                GROUP BY p.ProductID, p.ProductName
+                ORDER BY total_sold DESC
+                LIMIT ?
+            """;
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, limit);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+
+                TopProduct product = new TopProduct(
+                        rs.getString("ProductName"),
+                        rs.getInt("total_sold"),
+                        rs.getDouble("revenue")
+                );
+
+                topProducts.add(product);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error top products: " + e.getMessage());
+
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        return topProducts;
+    }
+
+}
 
