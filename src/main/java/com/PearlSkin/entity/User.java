@@ -7,39 +7,35 @@
         private int userId;
         private String name;
         private String email;
-        private String passwordHash;
+        private String password;
         private String phoneNumber;
         private String address;
         private String skinType;
         private Timestamp registrationDate;
+        private boolean isAdmin;
 
         // Constructor for creating new user
-        public User(String name, String email,
-                    String passwordHash, String phoneNumber,
-                    String address, String skinType) {
-
+        public User(String name, String email, String password) {
             this.name = name;
             this.email = email;
-            this.passwordHash = passwordHash;
-            this.phoneNumber = phoneNumber;
-            this.address = address;
-            this.skinType = skinType;
+            this.password = password;
+
         }
 
         // Full constructor
         public User(int userId, String name, String email,
-                    String passwordHash, String phoneNumber,
-                    String address, String skinType,
-                    Timestamp registrationDate) {
+                    String password, String address, String phoneNumber, String skinType,
+                    Timestamp registrationDate, boolean isAdmin) {
 
             this.userId = userId;
             this.name = name;
             this.email = email;
-            this.passwordHash = passwordHash;
+            this.password = password;
             this.phoneNumber = phoneNumber;
             this.address = address;
             this.skinType = skinType;
             this.registrationDate = registrationDate;
+            this.isAdmin = isAdmin;
         }
 
         // Getters
@@ -55,8 +51,8 @@
             return email;
         }
 
-        public String getPasswordHash() {
-            return passwordHash;
+        public String getPassword() {
+            return password;
         }
 
         public String getPhoneNumber() {
@@ -74,6 +70,9 @@
         public Timestamp getRegistrationDate() {
             return registrationDate;
         }
+        public boolean isAdmin() {
+            return isAdmin;
+        }
 
         // Setters
         public void setUserId(int userId) {
@@ -88,8 +87,8 @@
             this.email = email;
         }
 
-        public void setPasswordHash(String passwordHash) {
-            this.passwordHash = passwordHash;
+        public void setPassword(String password) {
+            this.password = password;
         }
 
         public void setPhoneNumber(String phoneNumber) {
@@ -104,13 +103,11 @@
             this.skinType = skinType;
         }
 
+
         @Override
         public String toString() {
-
-            return "[User ID: " + userId +
+            return "(User ID: " + userId +
                     ", Name: " + name +
-                    ", Email: " + email +
-                    ", Skin Type: " + skinType +
-                    ", Registered: " + registrationDate + "]";
+                    ", Email: " + email + ")";
         }
     }

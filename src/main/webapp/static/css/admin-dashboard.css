@@ -1,3 +1,10 @@
+
+.main-content {
+    margin-left: 240px !important;
+    flex: 1;
+    padding: 0;
+    min-height: 100vh;
+}
 /* ── STATS CARDS ── */
 .stats-cards {
     display: flex;

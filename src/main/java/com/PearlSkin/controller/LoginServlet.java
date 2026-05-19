@@ -30,10 +30,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
+        String name = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User user = userDao.findByUsername(username);
+        User user = userDao.findByName(name);
 
         if (user == null) {
             request.setAttribute("error", "Invalid username or password");
@@ -50,7 +50,8 @@ public class LoginServlet extends HttpServlet {
         }
 
         SessionUtil.setAttribute(request, "user", user);
-        CookieUtil.addCookie(response, "username", user.getUsername(), 24*60*60);
+        SessionUtil.setAttribute(request, "isAdmin", user.isAdmin());
+        CookieUtil.addCookie(response, "username", user.getName(), 24*60*60);
         response.sendRedirect(request.getContextPath() + "/dashboard");
     }
 }

@@ -21,6 +21,11 @@ public class ValidationUtil {
         return password!= null && password.matches(passwordRegex);
     }
 
+    public static boolean isValidPhoneNumber(String phoneNumber){
+        String numberRegex = "^[+]?\\d[\\d\\s-]{10}$";
+        return phoneNumber!= null && Pattern.matches(numberRegex, phoneNumber);
+    }
+
     public static boolean doPasswordsMatch(String password, String retypePassword) {
         return password != null && password.equals(retypePassword);
     }

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +9,8 @@
 </jsp:include>
 
 <body>
+    <jsp:include page="/WEB-INF/templates/header.jsp" />
+
     <main>
         <div class="hero">
             <div class="left-section">
@@ -70,36 +72,46 @@
                 <span>Featured products</span>
             </div>
 
-            <section class="featured-products">
+        <section class="featured-products">
+
+            <c:forEach var="product" items="${featuredProducts}">
+
                 <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Product Name</h4>
-                        <p class="product-sub">Short description here</p>
-                        <p class="product-price">Rs. 0,000</p>
-                        <button class="add-to-cart">ADD TO CART &#128722;</button>
+
+                    <!-- IMAGE SECTION (matches .product-img CSS) -->
+                    <div class="product-img">
+                        <img src="images/products/<c:out value='${product.image}'/>"
+                             alt="<c:out value='${product.productName}'/>">
                     </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img"></div>
+
+                    <!-- PRODUCT INFO -->
                     <div class="product-info">
-                        <h4>Product Name</h4>
-                        <p class="product-sub">Short description here</p>
-                        <p class="product-price">Rs. 0,000</p>
-                        <button class="add-to-cart">ADD TO CART &#128722;</button>
+
+                        <h4>
+                            <c:out value="${product.productName}" />
+                        </h4>
+
+                        <p class="product-sub">
+                            <c:out value="${product.description}" />
+                        </p>
+
+                        <p class="product-price">
+                            Rs. <c:out value="${product.price}" />
+                        </p>
+
+                        <button class="add-to-cart">
+                            ADD TO CART &#128722;
+                        </button>
+
                     </div>
+
                 </div>
-                <div class="product-card">
-                    <div class="product-img"></div>
-                    <div class="product-info">
-                        <h4>Product Name</h4>
-                        <p class="product-sub">Short description here</p>
-                        <p class="product-price">Rs. 0,000</p>
-                        <button class="add-to-cart">ADD TO CART &#128722;</button>
-                    </div>
-                </div>
-            </section>
+
+            </c:forEach>
+
+        </section>
     </main>
+    <%@ include file="/WEB-INF/templates/footer.html" %>
 </body>
 
 </html>
