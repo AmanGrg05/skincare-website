@@ -16,14 +16,14 @@ public class ValidationUtil {
         return email!= null && Pattern.matches(emailRegex, email);
     }
 
+    public static boolean isValidPhoneNumber(String PhoneNumber){
+        String numberRegex = "^\\+?[0-9]{10,15}$";
+        return PhoneNumber!= null && Pattern.matches(numberRegex, PhoneNumber);
+    }
+
     public static boolean isValidPassword(String password){
         String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         return password!= null && password.matches(passwordRegex);
-    }
-
-    public static boolean isValidPhoneNumber(String phoneNumber){
-        String numberRegex = "^[+]?\\d[\\d\\s-]{10}$";
-        return phoneNumber!= null && Pattern.matches(numberRegex, phoneNumber);
     }
 
     public static boolean doPasswordsMatch(String password, String retypePassword) {

@@ -35,9 +35,9 @@
                 <div class="input-group">
                     <label>Name</label>
                     <input type="text"
-                           name="username"
+                           name="name"
                            placeholder="Enter your name"
-                           value="<c:out value='${param.username}' default='' />"
+                           value="<c:out value='${param.name}' default='' />"
                            required />
                 </div>
 
@@ -55,9 +55,9 @@
                 <div class="input-group">
                     <label>Phone Number</label>
                     <input type="tel"
-                           name="phone"
+                           name="phoneNumber"
                            placeholder="Enter your phone number"
-                           value="<c:out value='${param.phone}' default='' />"
+                           value="<c:out value='${param.phoneNumber}' default='' />"
                            required />
                 </div>
 
@@ -74,7 +74,7 @@
                 <div class="input-group">
                     <label>Confirm Password</label>
                     <input type="password"
-                           name="cpassword"
+                           name="confirmPassword"
                            placeholder="Confirm your password"
                            required />
                 </div>
@@ -84,7 +84,6 @@
                 <div class="divider">
                     <span>OR</span>
                 </div>
-
 
                 <p class="login-link">
                     Already have an account?

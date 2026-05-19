@@ -4,110 +4,111 @@
 
     public class User {
 
-        private int userId;
-        private String name;
-        private String email;
-        private String password;
-        private String phoneNumber;
-        private String address;
-        private String skinType;
-        private Timestamp registrationDate;
+        private int UserId;
+        private String Name;
+        private String Email;
+        private String PasswordHash;
+        private String PhoneNumber;
+        private String Address;
+        private String SkinType;
+        private Timestamp RegistrationDate;
         private boolean isAdmin;
 
         // Constructor for creating new user
-        public User(String name, String email, String password) {
-            this.name = name;
-            this.email = email;
-            this.password = password;
+        public User(String Name, String Email, String PasswordHash, String PhoneNumber) {
+            this.Name = Name;
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PhoneNumber = PhoneNumber;
 
         }
 
         // Full constructor
-        public User(int userId, String name, String email,
-                    String password, String address, String phoneNumber, String skinType,
-                    Timestamp registrationDate, boolean isAdmin) {
+        public User(int UserId, String Name, String Email, String PasswordHash, String PhoneNumber,
+                    String Address, String SkinType, Timestamp RegistrationDate, boolean isAdmin) {
 
-            this.userId = userId;
-            this.name = name;
-            this.email = email;
-            this.password = password;
-            this.phoneNumber = phoneNumber;
-            this.address = address;
-            this.skinType = skinType;
-            this.registrationDate = registrationDate;
+            this.UserId = UserId;
+            this.Name = Name;
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PhoneNumber = PhoneNumber;
+            this.Address = Address;
+            this.SkinType = SkinType;
+            this.RegistrationDate = RegistrationDate;
             this.isAdmin = isAdmin;
         }
 
         // Getters
         public int getUserId() {
-            return userId;
+            return UserId;
         }
 
         public String getName() {
-            return name;
+            return Name;
         }
 
         public String getEmail() {
-            return email;
+            return Email;
         }
 
-        public String getPassword() {
-            return password;
+        public String getPasswordHash() {
+            return PasswordHash;
         }
 
         public String getPhoneNumber() {
-            return phoneNumber;
+            return PhoneNumber;
         }
 
         public String getAddress() {
-            return address;
+            return Address;
         }
 
         public String getSkinType() {
-            return skinType;
+            return SkinType;
         }
 
         public Timestamp getRegistrationDate() {
-            return registrationDate;
+            return RegistrationDate;
         }
         public boolean isAdmin() {
             return isAdmin;
         }
 
         // Setters
-        public void setUserId(int userId) {
-            this.userId = userId;
+        public void setUserId(int UserId) {
+            this.UserId = UserId;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setName(String Name) {
+            this.Name = Name;
         }
 
-        public void setEmail(String email) {
-            this.email = email;
+        public void setEmail(String Email) {
+            this.Email = Email;
         }
 
-        public void setPassword(String password) {
-            this.password = password;
+
+        public void setPasswordHash(String PasswordHash) {
+            this.PasswordHash = PasswordHash;
         }
 
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
+        public void setPhoneNumber(String PhoneNumber) {
+            this.PhoneNumber = PhoneNumber;
         }
 
-        public void setAddress(String address) {
-            this.address = address;
+        public void setAddress(String Address) {
+            this.Address = Address;
         }
 
-        public void setSkinType(String skinType) {
-            this.skinType = skinType;
+        public void setSkinType(String SkinType) {
+            this.SkinType = SkinType;
         }
 
 
         @Override
         public String toString() {
-            return "(User ID: " + userId +
-                    ", Name: " + name +
-                    ", Email: " + email + ")";
+            return "(User ID: " + UserId +
+                    ", Name: " + Name +
+                    ", Email: " + Email + ")";
         }
     }

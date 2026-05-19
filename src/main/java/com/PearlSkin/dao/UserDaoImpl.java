@@ -24,11 +24,11 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO users (name, email, password, phoneNumber) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO users (Name, Email, PasswordHash, PhoneNumber) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
+            statement.setString(3, user.getPasswordHash());
             statement.setString(4, user.getPhoneNumber());
             statement.executeUpdate();
             return true;
@@ -51,14 +51,14 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 return new User(
-                        rs.getInt("userId"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("address"),
-                        rs.getString("skinType"),
-                        rs.getTimestamp("registrationDate"),
+                        rs.getInt("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("Email"),
+                        rs.getString("PasswordHash"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Address"),
+                        rs.getString("SkinType"),
+                        rs.getTimestamp("RegistrationDate"),
                         rs.getBoolean("isAdmin")
                 );
             }
@@ -81,14 +81,14 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 return new User(
-                        rs.getInt("userId"),
-                        rs.getString("name"),
-                        rs.getString("email"),
-                        rs.getString("password"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("address"),
-                        rs.getString("skinType"),
-                        rs.getTimestamp("registrationDate"),
+                        rs.getInt("UserId"),
+                        rs.getString("Name"),
+                        rs.getString("Email"),
+                        rs.getString("PasswordHash"),
+                        rs.getString("PhoneNumber"),
+                        rs.getString("Address"),
+                        rs.getString("SkinType"),
+                        rs.getTimestamp("RegistrationDate"),
                         rs.getBoolean("isAdmin")
                 );
             }
@@ -105,13 +105,13 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE users SET name = ?, email = ?, passwordHash = ?, phoneNumber = ? WHERE userId = ?";
+            String sql = "UPDATE users SET Name = ?, Email = ?, PasswordHash = ?, PhoneNumber = ? WHERE UserId = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, user.getUserId());
-            statement.setString(2, user.getName());
-            statement.setString(3, user.getEmail());
-            statement.setString(4, user.getPassword());
-            statement.setString(5, user.getPhoneNumber());
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPasswordHash());
+            statement.setString(4, user.getPhoneNumber());
+            statement.setInt(5, user.getUserId());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 return true;
@@ -131,7 +131,7 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "DELETE FROM users WHERE userId = ?";
+            String sql = "DELETE FROM users WHERE UserId = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate(); //Checks whether the operation actually worked

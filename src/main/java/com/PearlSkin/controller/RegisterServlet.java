@@ -26,45 +26,45 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String phoneNumber = request.getParameter("phoneNumber");
-        String password = request.getParameter("password");
+        String Name = request.getParameter("Name");
+        String Email = request.getParameter("Email");
+        String PasswordHash = request.getParameter("PasswordHash");
+        String PhoneNumber = request.getParameter("PhoneNumber");
         String confirmPassword = request.getParameter("confirmPassword");
 
         StringBuilder errors = new StringBuilder();
 
-        if (ValidationUtil.isNullOrEmpty(name)
-                || ValidationUtil.isAlphanumericStartingWithLetter(name)
-                || name.length() < 4) {
+        if (ValidationUtil.isNullOrEmpty(Name)
+                || !ValidationUtil.isAlphanumericStartingWithLetter(Name)
+                || Name.length() < 4) {
             errors.append("Name should be alphanumeric, starting with letter and be atleast 4 characters. ");
         }
-        if (!ValidationUtil.isValidEmail(email)) {
+        if (!ValidationUtil.isValidEmail(Email)) {
             errors.append("Email should be in valid format. ");
         }
-        if (!ValidationUtil.isValidPhoneNumber(phoneNumber)) {
+        if (!ValidationUtil.isValidPhoneNumber(PhoneNumber)) {
             errors.append("Phone number should be in valid format. ");
         }
-        if (!ValidationUtil.isValidPassword(password)) {
+        if (!ValidationUtil.isValidPassword(PasswordHash)) {
             errors.append("Password must be 7+ characters with uppercase, atleast 1 number and symbol. ");
         }
-        if (!ValidationUtil.doPasswordsMatch(password, confirmPassword)) {
+        if (!ValidationUtil.doPasswordsMatch(PasswordHash, confirmPassword)) {
             errors.append("Passwords do not match. ");
         }
 
         if (!errors.isEmpty()) {
-            request.setAttribute("errors", errors.toString().trim());
+            request.setAttribute("error", errors.toString().trim());
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
 
-        String hashedPassword = PasswordUtil.getHashPassword(password);
-        User user = new User(name, email, hashedPassword);
+        String hashedPassword = PasswordUtil.getHashPassword(PasswordHash);
+        User user = new User(Name, Email, hashedPassword, PhoneNumber);
 
         boolean success = userDao.addUser(user);
 
-        if (success) {
-            request.setAttribute("error", "Username or email address alreadt exists.");
+        if (!success) {
+            request.setAttribute("error", "Username or email address already exists.");
             request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request, response);
             return;
         }
