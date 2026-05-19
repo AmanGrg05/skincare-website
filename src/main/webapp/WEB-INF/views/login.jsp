@@ -48,10 +48,6 @@
                            required />
                 </div>
 
-                <p class="forgot-password">
-                    <a href="#">Forgot Password?</a>
-                </p>
-
                 <button type="submit">Login</button>
 
                 <p class="register-link">
@@ -60,11 +56,8 @@
                         Register
                     </a>
                 </p>
-
             </form>
-
         </div>
-
     </div>
 
     <!-- RIGHT SIDE -->
@@ -72,8 +65,6 @@
         <img src="${pageContext.request.contextPath}/static/images/main-section.png"
              alt="Login Illustration" />
     </div>
-
 </div>
-
 </body>
 </html>

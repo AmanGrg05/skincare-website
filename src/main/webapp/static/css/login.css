@@ -84,16 +84,6 @@ body {
     border-color: #444;
 }
 
-.forgot-password {
-    text-align: right;
-    margin-bottom: 30px;
-}
-
-.forgot-password a {
-    text-decoration: none;
-    color: #555;
-    font-size: 14px;
-}
 
 button {
     width: 100%;

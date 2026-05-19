@@ -8,9 +8,11 @@
         private String name;
         private String email;
         private String password;
+        private String phoneNumber;
         private String address;
         private String skinType;
         private Timestamp registrationDate;
+        private boolean isAdmin;
 
         // Constructor for creating new user
         public User(String name, String email, String password) {
@@ -22,16 +24,18 @@
 
         // Full constructor
         public User(int userId, String name, String email,
-                    String password, String address, String skinType,
-                    Timestamp registrationDate) {
+                    String password, String address, String phoneNumber, String skinType,
+                    Timestamp registrationDate, boolean isAdmin) {
 
             this.userId = userId;
             this.name = name;
             this.email = email;
             this.password = password;
+            this.phoneNumber = phoneNumber;
             this.address = address;
             this.skinType = skinType;
             this.registrationDate = registrationDate;
+            this.isAdmin = isAdmin;
         }
 
         // Getters
@@ -51,6 +55,9 @@
             return password;
         }
 
+        public String getPhoneNumber() {
+            return phoneNumber;
+        }
 
         public String getAddress() {
             return address;
@@ -62,6 +69,9 @@
 
         public Timestamp getRegistrationDate() {
             return registrationDate;
+        }
+        public boolean isAdmin() {
+            return isAdmin;
         }
 
         // Setters
@@ -81,6 +91,10 @@
             this.password = password;
         }
 
+        public void setPhoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+        }
+
         public void setAddress(String address) {
             this.address = address;
         }
@@ -88,6 +102,7 @@
         public void setSkinType(String skinType) {
             this.skinType = skinType;
         }
+
 
         @Override
         public String toString() {

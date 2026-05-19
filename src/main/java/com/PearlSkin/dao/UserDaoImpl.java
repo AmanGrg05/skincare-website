@@ -24,11 +24,12 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (name, email, password, phoneNumber) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
+            statement.setString(4, user.getPhoneNumber());
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -54,9 +55,11 @@ public class UserDaoImpl implements UserDao {
                         rs.getString("name"),
                         rs.getString("email"),
                         rs.getString("password"),
+                        rs.getString("phoneNumber"),
                         rs.getString("address"),
                         rs.getString("skinType"),
-                        rs.getTimestamp("registrationDate")
+                        rs.getTimestamp("registrationDate"),
+                        rs.getBoolean("isAdmin")
                 );
             }
         }catch (SQLException e) {
@@ -82,9 +85,11 @@ public class UserDaoImpl implements UserDao {
                         rs.getString("name"),
                         rs.getString("email"),
                         rs.getString("password"),
+                        rs.getString("phoneNumber"),
                         rs.getString("address"),
                         rs.getString("skinType"),
-                        rs.getTimestamp("registrationDate")
+                        rs.getTimestamp("registrationDate"),
+                        rs.getBoolean("isAdmin")
                 );
             }
         }catch (SQLException e) {
@@ -100,12 +105,13 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE users SET name = ?, email = ?, passwordHash = ? WHERE userId = ?";
+            String sql = "UPDATE users SET name = ?, email = ?, passwordHash = ?, phoneNumber = ? WHERE userId = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, user.getUserId());
             statement.setString(2, user.getName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
+            statement.setString(5, user.getPhoneNumber());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 return true;
@@ -138,4 +144,3 @@ public class UserDaoImpl implements UserDao {
         }
     }
 }
-
