@@ -10,9 +10,12 @@
     </jsp:include>
     <body>
         <div id="dashboard">
+            <!-- SIDEBAR -->
+            <jsp:include page="/WEB-INF/templates/sidebar.jsp" />
+            <!--main content-->
+
             <main class="main-content">
-                <!-- SIDEBAR -->
-                <jsp:include page="/WEB-INF/templates/sidebar.jsp" />
+
                 <!-- TOPBAR -->
                 <jsp:include page="/WEB-INF/templates/topbar.jsp" />
 
