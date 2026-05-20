@@ -7,53 +7,59 @@ USE PearlSkin;
 -- ==========================================
 -- Drop existing tables (FK order)
 -- ==========================================
-DROP TABLE IF EXISTS Review;
-DROP TABLE IF EXISTS OrderItem;
-DROP TABLE IF EXISTS Orders;
-DROP TABLE IF EXISTS Product;
-DROP TABLE IF EXISTS Category;
-DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS reviews;
+DROP TABLE IF EXISTS orderItems;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS users;
 
 -- ==========================================
 -- USER TABLE
 -- ==========================================
-CREATE TABLE User (
-                      UserID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                      Name VARCHAR(100) NOT NULL,
-                      Email VARCHAR(100) NOT NULL UNIQUE,
-                      Password VARCHAR(255) NOT NULL,
-                      PhoneNumber VARCHAR(20),
-                      Address TEXT,
-                      SkinType VARCHAR(50),
-                      RegistrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE users (
+                    userId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100) NOT NULL,
+                    email VARCHAR(100) NOT NULL UNIQUE,
+                    passwordHash VARCHAR(255) NOT NULL,
+                    phoneNumber VARCHAR(20),
+                    address TEXT,
+                    skinType VARCHAR(50),
+                    registrationDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    isAdmin BOOLEAN DEFAULT FALSE,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- ==========================================
 -- CATEGORY TABLE
 -- CategoryName as PRIMARY KEY
 -- ==========================================
-CREATE TABLE Category (
-                          CategoryName VARCHAR(100) PRIMARY KEY,
-                          Description TEXT
+CREATE TABLE categories (
+                        categoryName VARCHAR(100) PRIMARY KEY,
+                        description TEXT,
+                        created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- ==========================================
 -- PRODUCT TABLE
 -- FK now references CategoryName
 -- ==========================================
-CREATE TABLE Product (
-                         ProductID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                         CategoryName VARCHAR(100) NOT NULL,
-                         ProductName VARCHAR(150) NOT NULL,
-                         Brand VARCHAR(100),
-                         Price DECIMAL(10,2) NOT NULL,
-                         StockQuantity INT DEFAULT 0,
-                         SkinConcern VARCHAR(100),
-                         Ingredients TEXT,
-                         ExpiryDate DATE,
-                         Description TEXT,
+CREATE TABLE products (
+                         productId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                         categoryName VARCHAR(100) NOT NULL,
+                         productName VARCHAR(150) NOT NULL,
+                         price DECIMAL(10,2) NOT NULL,
+                         stockQuantity INT DEFAULT 0,
+                         skinConcern VARCHAR(100),
+                         ingredients TEXT,
+                         expiryDate DATE,
+                         description TEXT,
+                         created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                         updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-                         FOREIGN KEY (CategoryName) REFERENCES Category(CategoryName)
+                         FOREIGN KEY (categoryName) REFERENCES categories(categoryName)
                              ON DELETE CASCADE
                              ON UPDATE CASCADE
 );
@@ -61,15 +67,14 @@ CREATE TABLE Product (
 -- ==========================================
 -- ORDERS TABLE
 -- ==========================================
-CREATE TABLE Orders (
-                        OrderID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        UserID INT NOT NULL,
-                        OrderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        TotalAmount DECIMAL(10,2),
-                        OrderStatus VARCHAR(50) DEFAULT 'Pending',
-                        ShippingAddress TEXT,
-
-                        FOREIGN KEY (UserID) REFERENCES User(UserID)
+CREATE TABLE orders (
+                        orderId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        userId INT NOT NULL,
+                        orderDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        totalAmount DECIMAL(10,2),
+                        created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        FOREIGN KEY (userId) REFERENCES users(userId)
                             ON DELETE CASCADE
                             ON UPDATE CASCADE
 );
@@ -77,37 +82,39 @@ CREATE TABLE Orders (
 -- ==========================================
 -- ORDERITEM TABLE
 -- ==========================================
-CREATE TABLE OrderItem (
-                           OrderItemID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                           OrderID INT NOT NULL,
-                           ProductID INT NOT NULL,
-                           Quantity INT NOT NULL,
-                           UnitPrice DECIMAL(10,2) NOT NULL,
-                           Subtotal DECIMAL(10,2),
-
-                           FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+CREATE TABLE orderItems (
+                           orderItemId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                           orderId INT NOT NULL,
+                           productId INT NOT NULL,
+                           quantity INT NOT NULL,
+                           unitPrice DECIMAL(10,2) NOT NULL,
+                           subtotal DECIMAL(10,2),
+                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                           FOREIGN KEY (orderId) REFERENCES orders(orderId)
                                ON DELETE CASCADE,
 
-                           FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+                           FOREIGN KEY (productId) REFERENCES products(productId)
                                ON DELETE CASCADE,
 
-                           UNIQUE (OrderID, ProductID)
+                           UNIQUE (orderId, productId)
 );
 
 -- ==========================================
 -- REVIEW TABLE
 -- ==========================================
-CREATE TABLE Review (
-                        ReviewID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        UserID INT NOT NULL,
-                        ProductID INT NOT NULL,
-                        Rating INT CHECK (Rating BETWEEN 1 AND 5),
-                        Comment TEXT,
-                        ReviewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-                        FOREIGN KEY (UserID) REFERENCES User(UserID)
+CREATE TABLE reviews (
+                        reviewId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        userId INT NOT NULL,
+                        productId INT NOT NULL,
+                        rating INT CHECK (rating BETWEEN 1 AND 5),
+                        comment TEXT,
+                        reviewDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        FOREIGN KEY (userId) REFERENCES users(userId)
                             ON DELETE CASCADE,
 
-                        FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
+                        FOREIGN KEY (productId) REFERENCES products(productId)
                             ON DELETE CASCADE
 );
