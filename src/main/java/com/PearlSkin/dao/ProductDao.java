@@ -12,7 +12,6 @@ public interface ProductDao {
     boolean deleteProduct(int productId);
     Product getProductById(int productId);
     ArrayList<Product> getProductsByName(String productName);
-    ArrayList<Product> fetchProductsByCategory(String categoryName);
     ArrayList<Product> getFeaturedProducts();
     int countProducts();
     ArrayList<TopProduct> getTopProducts(int limit);

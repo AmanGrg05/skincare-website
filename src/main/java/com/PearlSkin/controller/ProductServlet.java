@@ -41,6 +41,14 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("product", product);
             request.getRequestDispatcher("/WEB-INF/views/product-details.jsp")
                     .forward(request, response);
+        }else if (action.equals("adminList")) {
+
+            ArrayList<Product> products = productDao.getAllProducts();
+
+            request.setAttribute("products", products);
+
+            request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
+                    .forward(request, response);
         }
     }
 
