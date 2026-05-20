@@ -204,7 +204,7 @@
             <input type="text" name="fullname" placeholder="Full Name" required>
             <input type="text" name="phone" placeholder="Phone Number" required>
             <textarea name="address" rows="4" placeholder="Shipping Address" required></textarea>
-            <button class="place-btn">Place Order</button>
+            <button class="place-btn">Pay to confirm order</button>
         </form>
     </div>
 </div>
