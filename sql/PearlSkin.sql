@@ -111,3 +111,76 @@ CREATE TABLE Review (
                         FOREIGN KEY (ProductID) REFERENCES Product(ProductID)
                             ON DELETE CASCADE
 );
+ALTER TABLE Product ADD Image VARCHAR(255);
+
+INSERT INTO Category (CategoryName, Description) VALUES
+                                                     ('Serum','Serums'),
+                                                     ('Eye Care','Eye products'),
+                                                     ('Facial Mist','Mists'),
+                                                     ('Moisturizer','Moisturizers'),
+                                                     ('Cleanser','Cleansers'),
+                                                     ('Sunscreen','Sunscreens');
+INSERT INTO Product
+(ProductName, Description, Price, StockQuantity, CategoryName, Brand, ExpiryDate, Ingredients, SkinConcern, Image)
+VALUES
+    (
+        'PearlSkin Radiance Serum',
+        'Lightweight brightening serum that deeply hydrates and enhances natural glow.',
+        1299.99,
+        50,
+        'Serum',
+        'PearlSkin',
+        '2027-12-31',
+        'Pearl Extract, Hyaluronic Acid, Niacinamide',
+        'Dullness',
+        'serum.png'
+    ),
+    (
+        'PearlSkin Silk Eye Cream',
+        'Nourishing eye cream that helps reduce puffiness, dark circles, and fine lines.',
+        999.99,
+        40,
+        'Eye Care',
+        'PearlSkin',
+        '2027-10-15',
+        'Pearl Extract, Peptides, Niacinamide',
+        'Dark Circles',
+        'eye-cream.png'
+    ),
+    (
+        'PearlSkin Dew Mist',
+        'Refreshing facial mist that hydrates and revives tired skin instantly.',
+        899.99,
+        60,
+        'Facial Mist',
+        'PearlSkin',
+        '2027-09-20',
+        'Pearl Extract, Rose Water, Hyaluronic Acid',
+        'Dryness',
+        'mist.png'
+    ),
+    (
+        'PearlSkin Nourishing Glow Moisturizer',
+        'Rich moisturizer that hydrates, nourishes, and protects skin all day.',
+        1499.99,
+        35,
+        'Moisturizer',
+        'PearlSkin',
+        '2027-11-30',
+        'Shea Butter, Pearl Extract, Vitamin E',
+        'Dry Skin',
+        'moisturizer.png'
+    ),
+    (
+        'PearlSkin Velvet Cleanser',
+        'Gentle cream cleanser that removes impurities without stripping moisture.',
+        799.99,
+        70,
+        'Cleanser',
+        'PearlSkin',
+        '2027-07-18',
+        'Chamomile Extract, Aloe Vera, Pearl Extract',
+        'Sensitive Skin',
+        'cleanser.png'
+    );
+
