@@ -36,6 +36,19 @@ nav ul li {
     display: inline-block;
     margin: 0 30px;
 }
+.usersession {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.usersession h3 {
+    font-weight: 100;
+    border-right: 1px solid #000;
+    padding-right: 15px;
+}
+
+
 .log-button{
     text-decoration: none;
     display: inline-block;

@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <header>
     <div class="logo">
@@ -14,10 +13,8 @@
 
     <div class="usersession">
         <c:choose>
-
-            <!-- If user is logged in -->
             <c:when test="${not empty sessionScope.user}">
-
+                <!-- If user is logged in -->
                 <h3>
                     <c:out value="${sessionScope.user.name}" />
                 </h3>
@@ -25,25 +22,17 @@
                 <a href="${pageContext.request.contextPath}/logout"
                    class="log-button"
                    onclick="return confirm('Are you sure you want to logout?');">
-
                     Logout
-
                 </a>
-
             </c:when>
 
-            <!-- If user is NOT logged in -->
             <c:otherwise>
-
+                <!-- If user is NOT logged in -->
                 <a href="${pageContext.request.contextPath}/login"
                    class="log-button">
-
                     Login
-
                 </a>
-
             </c:otherwise>
-
         </c:choose>
     </div>
 </header>
