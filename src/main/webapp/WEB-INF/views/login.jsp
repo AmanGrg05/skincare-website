@@ -62,7 +62,7 @@
 
     <!-- RIGHT SIDE -->
     <div class="login-right">
-        <img src="${pageContext.request.contextPath}/static/images/mist.png"
+        <img src="${pageContext.request.contextPath}/static/images/best-seller-left-section.png"
              alt="Login Illustration" />
     </div>
 </div>
