@@ -19,11 +19,11 @@
             <c:when test="${not empty sessionScope.user}">
 
                 <h3>
-                    <c:out value="${sessionScope.user.username}" />
+                    <c:out value="${sessionScope.user.name}" />
                 </h3>
 
                 <a href="${pageContext.request.contextPath}/logout"
-                   class="logout"
+                   class="log-button"
                    onclick="return confirm('Are you sure you want to logout?');">
 
                     Logout
@@ -36,7 +36,7 @@
             <c:otherwise>
 
                 <a href="${pageContext.request.contextPath}/login"
-                   class="login-btn">
+                   class="log-button">
 
                     Login
 
