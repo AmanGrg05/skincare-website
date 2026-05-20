@@ -41,21 +41,6 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("product", product);
             request.getRequestDispatcher("/WEB-INF/views/product-detail.jsp")
                     .forward(request, response);
-        }else if (action.equals("adminList")) {
-
-            ArrayList<Product> products = productDao.getAllProducts();
-
-            request.setAttribute("products", products);
-
-            request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
-                    .forward(request, response);
-        }
-
-        // ADD PRODUCT PAGE
-        else if (action.equals("new")) {
-
-            request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
-                    .forward(request, response);
         }
     }
 

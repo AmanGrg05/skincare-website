@@ -13,25 +13,25 @@
         display: flex;
         gap:40px;
         padding: 40px 50px;
-        background: #fff;
+        background: #FFFFFF;
     }
 
     .details-left { width: 45%; }
 
     .details-main {
         width: 100%;
-        border: 1px solid #ccc;
+        border: 1px solid #cccccc;
     }
 
     .details-right {width: 55%}
     .desc { margin:15px 0; }
     .info-block {
-    border-top:1px solid #ccc;
+    border-top:1px solid #cccccc;
     padding: 10px 0; }
 
     .btn-row {margin-top: 20px;}
-    .btn-dark { background: #000;
-        color: #fff;
+    .btn-dark { background: beige;
+        color: black;
         border: none;
         padding: 10px 20px;
         margin-right: 10px;
@@ -97,17 +97,16 @@
                 <c:otherwise>
                     <div class="btn-row">
 
-                        <form action="cart" method="post">
-                            <input type="hidden" name="action" value="add">
+                        <form action="${pageContext.request.contextPath}/product" method="post">
+                            <input type="hidden" name="action" value="addToCart">
                             <input type="hidden" name="productId" value="${product.productId}">
                             <button class="btn-dark">Add To Cart</button>
                         </form>
 
-                        <form action="cart" method="post">
-                            <input type="hidden" name="action"  value="buyNow">
+                        <form action="${pageContext.request.contextPath}/product" method="post">
+                            <input type="hidden" name="action" value="buyNow">
                             <input type="hidden" name="productId" value="${product.productId}">
                             <button class="btn-dark">Buy Now</button>
-
                         </form>
 
                     </div>
