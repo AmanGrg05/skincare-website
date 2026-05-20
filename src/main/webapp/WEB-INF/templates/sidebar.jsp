@@ -21,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/user?action=adminList">
                     Customers
                 </a>
             </li>
