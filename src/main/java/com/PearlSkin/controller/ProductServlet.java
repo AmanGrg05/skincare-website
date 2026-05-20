@@ -49,6 +49,9 @@ public class ProductServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
                     .forward(request, response);
+        }else if (action.equals("new")) {
+            request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
+                    .forward(request, response);
         }
     }
 
