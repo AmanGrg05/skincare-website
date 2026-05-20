@@ -41,6 +41,10 @@ public class ProductServlet extends HttpServlet {
             request.setAttribute("product", product);
             request.getRequestDispatcher("/WEB-INF/views/product-detail.jsp")
                     .forward(request, response);
+
+        } else if (action.equals("cart")) {
+            request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
+                    .forward(request, response);
         }
     }
 
@@ -49,20 +53,19 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        int productId = Integer.parseInt(request.getParameter("productId"));
-
-        Product product = productDao.getProductById(productId);
-
-        //stock check
-        if (product.getStockQuantity() <=0) {
-            response.sendRedirect("product?action=detail&id=" + productId);
-        }
-
-        // Using sessionutil with HttpServlet request
-        List<OrderItem> cart = SessionUtil.getCart(request);
-        if (cart == null) cart = new ArrayList<>();
-
         if ("addToCart".equals(action) || "buyNow".equals(action)) {
+            int productId = Integer.parseInt(request.getParameter("productId"));
+            Product product = productDao.getProductById(productId);
+
+            // stock check
+            if (product.getStockQuantity() <= 0) {
+                response.sendRedirect(request.getContextPath()
+                        + "/product?action=detail&id=" + productId
+                );
+                return;
+            }
+
+            List<OrderItem> cart = SessionUtil.getCart(request);
             boolean found = false;
 
             for (OrderItem item : cart) {
@@ -72,19 +75,31 @@ public class ProductServlet extends HttpServlet {
                     break;
                 }
             }
+
             if (!found) {
                 OrderItem item = new OrderItem(0, productId, 1, product.getPrice());
                 cart.add(item);
             }
 
             request.getSession().setAttribute("cart", cart);
-        }
 
-            if (action.equals("buyNow")) {
-                response.sendRedirect("order?action=checkout");
+            // Redirect after add/buy
+            if ("addToCart".equals(action)) {
+                response.sendRedirect(request.getContextPath() + "/product?action=cart");
             } else {
-                response.sendRedirect("product?action=list");
+                response.sendRedirect(request.getContextPath() + "/product?action=cart&checkout=true");
+            }
+
+            if ("placeOrder".equals(action)) {
+                String fullname = request.getParameter("fullname");
+                String phone = request.getParameter("phone");
+                String address = request.getParameter("address");
+
+                request.getSession().removeAttribute("cart");
+                request.setAttribute("message", "Order placed successfully!");
+                request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
+                        .forward(request, response);
             }
         }
     }
-
+}
