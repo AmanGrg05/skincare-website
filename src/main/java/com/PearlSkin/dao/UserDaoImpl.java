@@ -157,7 +157,7 @@ public class UserDaoImpl implements UserDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT COUNT(*) FROM uses WHERE isAdmin = FALSE";
+            String sql = "SELECT COUNT(*) FROM users WHERE isAdmin = FALSE";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();

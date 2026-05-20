@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        User user = userDao.findByName(email);
+        User user = userDao.findByEmail(email);
 
         if (user == null) {
             request.setAttribute("error", "Invalid Email or password");
