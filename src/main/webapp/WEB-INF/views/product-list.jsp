@@ -61,7 +61,6 @@
             <th>#</th>
             <th>Name</th>
             <th>Category</th>
-            <th>Brand</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Skin Concern</th>
@@ -92,8 +91,6 @@
                   </td>
 
                   <td><c:out value="${product.categoryName}" /></td>
-
-                  <td><c:out value="${product.brand}" /></td>
 
                   <td>
                     Rs. <fmt:formatNumber value="${product.price}" type="number" minFractionDigits="2"/>

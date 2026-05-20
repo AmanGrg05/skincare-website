@@ -6,7 +6,7 @@
     <nav class="sidebar-nav">
         <ul>
             <li class="active">
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/dashboard">
                     Dashboard
                 </a>
             </li>
@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/order?action=adminList">
                     Orders
                 </a>
             </li>
