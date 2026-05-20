@@ -1,115 +1,114 @@
-package com.PearlSkin.entity;
+    package com.PearlSkin.entity;
 
-import java.sql.Timestamp;
+    import java.sql.Timestamp;
 
-public class User {
+    public class User {
 
-    private int userId;
-    private String name;
-    private String email;
-    private String passwordHash;
-    private String phoneNumber;
-    private String address;
-    private String skinType;
-    private Timestamp registrationDate;
+        private int UserId;
+        private String Name;
+        private String Email;
+        private String PasswordHash;
+        private String PhoneNumber;
+        private String Address;
+        private String SkinType;
+        private Timestamp RegistrationDate;
+        private boolean isAdmin;
 
-    // Constructor for creating new user
-    public User(String name, String email,
-                String passwordHash, String phoneNumber,
-                String address, String skinType) {
+        // Constructor for creating new user
+        public User(String Name, String Email, String PasswordHash, String PhoneNumber) {
+            this.Name = Name;
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PhoneNumber = PhoneNumber;
 
-        this.name = name;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.skinType = skinType;
+        }
+
+        // Full constructor
+        public User(int UserId, String Name, String Email, String PasswordHash, String PhoneNumber,
+                    String Address, String SkinType, Timestamp RegistrationDate, boolean isAdmin) {
+
+            this.UserId = UserId;
+            this.Name = Name;
+            this.Email = Email;
+            this.PasswordHash = PasswordHash;
+            this.PhoneNumber = PhoneNumber;
+            this.Address = Address;
+            this.SkinType = SkinType;
+            this.RegistrationDate = RegistrationDate;
+            this.isAdmin = isAdmin;
+        }
+
+        // Getters
+        public int getUserId() {
+            return UserId;
+        }
+
+        public String getName() {
+            return Name;
+        }
+
+        public String getEmail() {
+            return Email;
+        }
+
+        public String getPasswordHash() {
+            return PasswordHash;
+        }
+
+        public String getPhoneNumber() {
+            return PhoneNumber;
+        }
+
+        public String getAddress() {
+            return Address;
+        }
+
+        public String getSkinType() {
+            return SkinType;
+        }
+
+        public Timestamp getRegistrationDate() {
+            return RegistrationDate;
+        }
+        public boolean isAdmin() {
+            return isAdmin;
+        }
+
+        // Setters
+        public void setUserId(int UserId) {
+            this.UserId = UserId;
+        }
+
+        public void setName(String Name) {
+            this.Name = Name;
+        }
+
+        public void setEmail(String Email) {
+            this.Email = Email;
+        }
+
+
+        public void setPasswordHash(String PasswordHash) {
+            this.PasswordHash = PasswordHash;
+        }
+
+        public void setPhoneNumber(String PhoneNumber) {
+            this.PhoneNumber = PhoneNumber;
+        }
+
+        public void setAddress(String Address) {
+            this.Address = Address;
+        }
+
+        public void setSkinType(String SkinType) {
+            this.SkinType = SkinType;
+        }
+
+
+        @Override
+        public String toString() {
+            return "(User ID: " + UserId +
+                    ", Name: " + Name +
+                    ", Email: " + Email + ")";
+        }
     }
-
-    // Full constructor
-    public User(int userId, String name, String email,
-                String passwordHash, String phoneNumber,
-                String address, String skinType,
-                Timestamp registrationDate) {
-
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-        this.passwordHash = passwordHash;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.skinType = skinType;
-        this.registrationDate = registrationDate;
-    }
-
-    // Getters
-    public int getUserId() {
-        return userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getSkinType() {
-        return skinType;
-    }
-
-    public Timestamp getRegistrationDate() {
-        return registrationDate;
-    }
-
-    // Setters
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setSkinType(String skinType) {
-        this.skinType = skinType;
-    }
-
-    @Override
-    public String toString() {
-        return "[User ID: " + userId +
-                ", Name: " + name +
-                ", Email: " + email +
-                ", Skin Type: " + skinType +
-                ", Registered: " + registrationDate + "]";
-    }
-}
