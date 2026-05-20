@@ -27,6 +27,7 @@ public class AuthenticationFilter implements Filter {
         String contextPath = req.getContextPath();
         String path = uri.substring(contextPath.length());
 
+        //Allow Static files
         if (path.startsWith("/static/")) {
             chain.doFilter(request, response);
             return;
@@ -34,7 +35,9 @@ public class AuthenticationFilter implements Filter {
 
         boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
 
-        boolean isAdmin = SessionUtil.getAttribute(req, "isAdmin") != null;
+        Boolean isAdmin = (Boolean) SessionUtil.getAttribute(req, "isAdmin");
+        if (isAdmin == null) isAdmin = false;
+
 
         boolean isUser = "/".equals(path)
                 || "/home".equals(path)
