@@ -4,6 +4,7 @@ import com.PearlSkin.dao.ProductDao;
 import com.PearlSkin.dao.ProductDaoImpl;
 import com.PearlSkin.entity.OrderItem;
 import com.PearlSkin.entity.Product;
+import com.PearlSkin.utils.SessionUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,15 +12,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
-@WebServlet ("/product")
+@WebServlet("/product")
 public class ProductServlet extends HttpServlet {
-
     private ProductDao productDao = new ProductDaoImpl();
 
     @Override
@@ -29,28 +29,17 @@ public class ProductServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if(action==null || action.equals("list")) {
+        if (action == null || action.equals("list")) {
             ArrayList<Product> products = productDao.getAllProducts();
             request.setAttribute("products", products);
-            request.getRequestDispatcher("/WEB-INF/views/product-details.jsp")
+            request.getRequestDispatcher("/WEB-INF/views/product.jsp")
                     .forward(request, response);
 
-        } else if (action.equals("details")) {
+        } else if (action.equals("detail")) {
             int id = Integer.parseInt(request.getParameter("id"));
             Product product = productDao.getProductById(id);
             request.setAttribute("product", product);
-            request.getRequestDispatcher("/WEB-INF/views/product-details.jsp")
-                    .forward(request, response);
-        }else if (action.equals("adminList")) {
-
-            ArrayList<Product> products = productDao.getAllProducts();
-
-            request.setAttribute("products", products);
-
-            request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
-                    .forward(request, response);
-        }else if (action.equals("new")) {
-            request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
+            request.getRequestDispatcher("/WEB-INF/views/product-detail.jsp")
                     .forward(request, response);
         }
     }
@@ -64,24 +53,32 @@ public class ProductServlet extends HttpServlet {
 
         Product product = productDao.getProductById(productId);
 
-        HttpSession session = request.getSession();
-        Map<Integer, OrderItem> cart =
-                (Map<Integer, OrderItem>) session.getAttribute("cart");
+        //stock check
+        if (product.getStockQuantity() <=0) {
+            response.sendRedirect("product?action=detail&id=" + productId);
+        }
 
-        if (cart == null) cart = new HashMap<>();
+        // Using sessionutil with HttpServlet request
+        List<OrderItem> cart = SessionUtil.getCart(request);
+        if (cart == null) cart = new ArrayList<>();
 
-        if (action.equals("addToCart") || action.equals("buyNow")){
-            if(cart.containsKey(productId)){
-                OrderItem item = cart.get(productId);
-                item.setQuantity(item.getQuantity() +1);
-        } else {
-                OrderItem item = new OrderItem(0,productId,1,product.getPrice());
-                item.setProductId(productId);
-                item.setQuantity(1);
-                item.setUnitPrice(product.getPrice());
-                cart.put(productId, item);
+        if ("addToCart".equals(action) || "buyNow".equals(action)) {
+            boolean found = false;
+
+            for (OrderItem item : cart) {
+                if (item.getProductId() == productId) {
+                    item.setQuantity(item.getQuantity() + 1);
+                    found = true;
+                    break;
+                }
             }
-            session.setAttribute("cart", cart);
+            if (!found) {
+                OrderItem item = new OrderItem(0, productId, 1, product.getPrice());
+                cart.add(item);
+            }
+
+            request.getSession().setAttribute("cart", cart);
+        }
 
             if (action.equals("buyNow")) {
                 response.sendRedirect("order?action=checkout");
@@ -90,4 +87,4 @@ public class ProductServlet extends HttpServlet {
             }
         }
     }
-}
+

@@ -10,7 +10,7 @@ USE PearlSkin;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS orderItems;
 DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS Product;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS users;
 
@@ -35,7 +35,7 @@ CREATE TABLE users (
 -- CATEGORY TABLE
 -- CategoryName as PRIMARY KEY
 -- ==========================================
-CREATE TABLE categories (
+CREATE TABLE category (
                         categoryName VARCHAR(100) PRIMARY KEY,
                         description TEXT,
                         created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -46,7 +46,7 @@ CREATE TABLE categories (
 -- PRODUCT TABLE
 -- FK now references CategoryName
 -- ==========================================
-CREATE TABLE products (
+CREATE TABLE product (
                          productId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          categoryName VARCHAR(100) NOT NULL,
                          productName VARCHAR(150) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE products (
                          created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                          updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-                         FOREIGN KEY (categoryName) REFERENCES categories(categoryName)
+                         FOREIGN KEY (categoryName) REFERENCES category(categoryName)
                              ON DELETE CASCADE
                              ON UPDATE CASCADE
 );
@@ -94,7 +94,7 @@ CREATE TABLE orderItems (
                            FOREIGN KEY (orderId) REFERENCES orders(orderId)
                                ON DELETE CASCADE,
 
-                           FOREIGN KEY (productId) REFERENCES products(productId)
+                           FOREIGN KEY (productId) REFERENCES Product(productId)
                                ON DELETE CASCADE,
 
                            UNIQUE (orderId, productId)
@@ -115,21 +115,24 @@ CREATE TABLE reviews (
                         FOREIGN KEY (userId) REFERENCES users(userId)
                             ON DELETE CASCADE,
 
-                        FOREIGN KEY (productId) REFERENCES products(productId)
+                        FOREIGN KEY (productId) REFERENCES product(productId)
                             ON DELETE CASCADE
 
 );
-ALTER TABLE Product ADD Image VARCHAR(255);
 
-INSERT INTO Category (CategoryName, Description) VALUES
+ALTER TABLE product ADD Image VARCHAR(255);
+
+INSERT INTO categories (CategoryName, Description) VALUES
                                                      ('Serum','Serums'),
                                                      ('Eye Care','Eye products'),
                                                      ('Facial Mist','Mists'),
                                                      ('Moisturizer','Moisturizers'),
                                                      ('Cleanser','Cleansers'),
                                                      ('Sunscreen','Sunscreens');
-INSERT INTO Product
-(ProductName, Description, Price, StockQuantity, CategoryName, Brand, ExpiryDate, Ingredients, SkinConcern, Image)
+
+
+INSERT INTO product
+(productName, description, price, stockQuantity, categoryName, expiryDate, ingredients, skinConcern, Image)
 VALUES
     (
         'PearlSkin Radiance Serum',
@@ -137,7 +140,6 @@ VALUES
         1299.99,
         50,
         'Serum',
-        'PearlSkin',
         '2027-12-31',
         'Pearl Extract, Hyaluronic Acid, Niacinamide',
         'Dullness',
@@ -149,11 +151,10 @@ VALUES
         999.99,
         40,
         'Eye Care',
-        'PearlSkin',
         '2027-10-15',
         'Pearl Extract, Peptides, Niacinamide',
         'Dark Circles',
-        'eye-cream.png'
+        'eye cream.png'
     ),
     (
         'PearlSkin Dew Mist',
@@ -161,7 +162,6 @@ VALUES
         899.99,
         60,
         'Facial Mist',
-        'PearlSkin',
         '2027-09-20',
         'Pearl Extract, Rose Water, Hyaluronic Acid',
         'Dryness',
@@ -173,7 +173,6 @@ VALUES
         1499.99,
         35,
         'Moisturizer',
-        'PearlSkin',
         '2027-11-30',
         'Shea Butter, Pearl Extract, Vitamin E',
         'Dry Skin',
@@ -185,10 +184,21 @@ VALUES
         799.99,
         70,
         'Cleanser',
-        'PearlSkin',
         '2027-07-18',
         'Chamomile Extract, Aloe Vera, Pearl Extract',
         'Sensitive Skin',
         'cleanser.png'
+    ),
+    (
+        'PearlSkin UV Shield Sunscreen SPF 50',
+        'Lightweight broad-spectrum sunscreen that protects skin from UVA/UVB rays while keeping it hydrated and non-greasy.',
+        1399.99,
+        60,
+        'Sunscreen',
+        '2027-12-31',
+        'Zinc Oxide, Titanium Dioxide, Aloe Vera, Vitamin E',
+        'Sun Protection',
+        'sunscreen.png'
     );
+
 

@@ -25,25 +25,30 @@ public class ProductDaoImpl implements ProductDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO products (Productname,description,productId, price, Stock) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Product " +
+                    "(productName, description, price, stockQuantity, " +
+                    "categoryName, expiryDate, ingredients, skinConcern, Image)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1,  product.getProductId());
-            ps.setString(2, product.getProductName());
-            ps.setString(3, product.getCategoryName());
-            ps.setString(4, product.getDescription());
-            ps.setBigDecimal(5, product.getPrice());
-            ps.setInt(6, product.getStockQuantity());
-            ps.setString(7, product.getBrand());
-            ps.setDate(8, product.getExpiryDate());
-            ps.setString(9, product.getIngredients());
-            ps.setString(10, product.getSkinConcern());
+            ps.setString(1, product.getProductName());
+            ps.setString(2, product.getDescription());
+            ps.setBigDecimal(3, product.getPrice());
+            ps.setInt(4, product.getStockQuantity());
+            ps.setString(5, product.getCategoryName());
+            ps.setDate(6, product.getExpiryDate());
+            ps.setString(7, product.getIngredients());
+            ps.setString(8, product.getSkinConcern());
+            ps.setString(9, product.getImage());
             ps.executeUpdate();
             return true;
 
         } catch (SQLException e){
                 System.out.println("Error in inserting product" + e.getMessage());
-            }
+            } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
             return false;
         }
 
@@ -53,7 +58,7 @@ public class ProductDaoImpl implements ProductDao {
             Connection conn = null;
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM products";
+                String sql = "SELECT * FROM Product";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -61,13 +66,13 @@ public class ProductDaoImpl implements ProductDao {
                             rs.getInt("productId"),
                             rs.getString("categoryName"),
                             rs.getString("productName"),
-                            rs.getString("brand"),
                             rs.getBigDecimal("price"),
                             rs.getInt("stockQuantity"),
                             rs.getString("skinConcern"),
                             rs.getString("ingredients"),
                             rs.getDate("expiryDate"),
-                            rs.getString("description")
+                            rs.getString("description"),
+                            rs.getString("Image")
                     );
                     products.add(product);
                 }
@@ -85,13 +90,14 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "UPDATE product SET ProductName = ?, Description = ?," +
-                        " Price = ?, Stock = ? WHERE id = ?";
+                String sql = "UPDATE Product SET productName = ?, description = ?, " +
+                        "price = ?, stockQuantity = ? WHERE productID = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, product.getProductName());
                 ps.setString(2, product.getDescription());
                 ps.setBigDecimal(3, product.getPrice());
                 ps.setInt(4, product.getStockQuantity());
+                ps.setInt(5, product.getProductId());
                 ps.executeUpdate();
                 return true;
             } catch (SQLException e) {
@@ -108,7 +114,7 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "DELETE FROM product WHERE id = ?";
+                String sql = "DELETE FROM Product WHERE productId = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, id);
                 ps.executeUpdate();
@@ -127,23 +133,23 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM product WHERE id = ?";
+                String sql = "SELECT * FROM Product WHERE productId = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    Product product = new Product(
-                            rs.getInt("productId"),
+                    return new Product(
+                            rs.getInt("productID"),
                             rs.getString("categoryName"),
                             rs.getString("productName"),
-                            rs.getString("brand"),
                             rs.getBigDecimal("price"),
                             rs.getInt("stockQuantity"),
                             rs.getString("skinConcern"),
                             rs.getString("ingredients"),
                             rs.getDate("expiryDate"),
-                            rs.getString("description")
+                            rs.getString("description"),
+                            rs.getString("Image")
                     );
                 }
             } catch (SQLException e) {
@@ -160,27 +166,29 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM product WHERE ProductName LIKE ?";
+                String sql = "SELECT * FROM Product WHERE productName LIKE ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + name +"%");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Product product = new Product(
-                            rs.getInt("productId"),
+                            rs.getInt("productID"),
                             rs.getString("categoryName"),
                             rs.getString("productName"),
-                            rs.getString("brand"),
                             rs.getBigDecimal("price"),
                             rs.getInt("stockQuantity"),
                             rs.getString("skinConcern"),
                             rs.getString("ingredients"),
                             rs.getDate("expiryDate"),
-                            rs.getString("description")
+                            rs.getString("description"),
+                            rs.getString("Image")
                     );
                     products.add(product);
                 }
             } catch (SQLException e) {
                 System.out.println("Error in getting all products" + e.getMessage());
+            } finally {
+                DatabaseConnection.closeConnection(conn);
             }
             return products;
         }
@@ -201,16 +209,16 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
 
                 Product product = new Product(
-                        rs.getInt("ProductID"),
-                        rs.getString("CategoryName"),
-                        rs.getString("ProductName"),
-                        rs.getString("Brand"),
-                        rs.getBigDecimal("Price"),
-                        rs.getInt("StockQuantity"),
-                        rs.getString("SkinConcern"),
-                        rs.getString("Ingredients"),
-                        rs.getDate("ExpiryDate"),
-                        rs.getString("Description")
+                        rs.getInt("productID"),
+                        rs.getString("categoryName"),
+                        rs.getString("productName"),
+                        rs.getBigDecimal("price"),
+                        rs.getInt("stockQuantity"),
+                        rs.getString("skinConcern"),
+                        rs.getString("ingredients"),
+                        rs.getDate("expiryDate"),
+                        rs.getString("description"),
+                        rs.getString("Image")
                 );
                 products.add(product);
             }
@@ -262,12 +270,12 @@ public class ProductDaoImpl implements ProductDao {
             conn = DatabaseConnection.getConnection();
 
             String sql = """
-                SELECT p.ProductName,
-                       SUM(oi.Quantity) AS total_sold,
-                       SUM(oi.Quantity * oi.Price) AS revenue
+                SELECT p.productName,
+                       SUM(oi.quantity) AS total_sold,
+                       SUM(oi.quantity * oi.unitPrice) AS revenue
                 FROM Product p
-                JOIN OrderItem oi ON p.ProductID = oi.ProductID
-                GROUP BY p.ProductID, p.ProductName
+                JOIN orderItems oi ON p.productID = oi.productID
+                GROUP BY p.productID, p.productName
                 ORDER BY total_sold DESC
                 LIMIT ?
             """;
@@ -280,7 +288,7 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
 
                 TopProduct product = new TopProduct(
-                        rs.getString("ProductName"),
+                        rs.getString("productName"),
                         rs.getInt("total_sold"),
                         rs.getDouble("revenue")
                 );
@@ -298,5 +306,26 @@ public class ProductDaoImpl implements ProductDao {
         return topProducts;
     }
 
+    @Override
+    public boolean reduceStock(int productId, int stockQuantity) {
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+            String sql = "UPDATE Product SET stockQuantity = stockQuantity - ? WHERE productID = ? AND stockQuantity >= ?";
+            PreparedStatement ps = conn.prepareStatement(sql);{
+                ps.setInt(1, stockQuantity);
+                ps.setInt(2, productId);
+                ps.setInt(3, stockQuantity);
+                ps.executeUpdate();
+                return true;
+            }
+        } catch (SQLException e){
+            System.out.println("Error reducing stock: " + e.getMessage());
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+        return false;
+        }
 }
 
