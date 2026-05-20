@@ -8,49 +8,48 @@ public class Product {
     private int productId;
     private String categoryName;
     private String productName;
-    private String brand;
     private BigDecimal price;
     private int stockQuantity;
     private String skinConcern;
     private String ingredients;
     private Date expiryDate;
     private String description;
+    private String image;
 
     // Constructor for creating new product
     public Product(String categoryName, String productName,
-                   String brand, BigDecimal price,
+                   BigDecimal price,
                    int stockQuantity, String skinConcern,
                    String ingredients, Date expiryDate,
-                   String description) {
+                   String description,  String image) {
 
         this.categoryName = categoryName;
         this.productName = productName;
-        this.brand = brand;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.skinConcern = skinConcern;
         this.ingredients = ingredients;
         this.expiryDate = expiryDate;
         this.description = description;
+        this.image = image;
     }
 
     // Full constructor
     public Product(int productId, String categoryName,
-                   String productName, String brand,
-                   BigDecimal price, int stockQuantity,
+                   String productName, BigDecimal price, int stockQuantity,
                    String skinConcern, String ingredients,
-                   Date expiryDate, String description) {
+                   Date expiryDate, String description,  String image) {
 
         this.productId = productId;
         this.categoryName = categoryName;
         this.productName = productName;
-        this.brand = brand;
         this.price = price;
         this.stockQuantity = stockQuantity;
         this.skinConcern = skinConcern;
         this.ingredients = ingredients;
         this.expiryDate = expiryDate;
         this.description = description;
+        this.image = image;
     }
 
     // Getters
@@ -64,10 +63,6 @@ public class Product {
 
     public String getProductName() {
         return productName;
-    }
-
-    public String getBrand() {
-        return brand;
     }
 
     public BigDecimal getPrice() {
@@ -94,6 +89,10 @@ public class Product {
         return description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     // Setters
 
     public void setCategoryName(String categoryName) {
@@ -102,10 +101,6 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public void setPrice(BigDecimal price) {
@@ -132,11 +127,14 @@ public class Product {
         this.description = description;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "[Product ID: " + productId +
                 ", Name: " + productName +
-                ", Brand: " + brand +
                 ", Category: " + categoryName +
                 ", Price: " + price +
                 ", Stock: " + stockQuantity + "]";

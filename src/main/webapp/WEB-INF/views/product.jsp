@@ -1,10 +1,10 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <jsp:include page="/WEB-INF/templates/head.jsp">
-    <jsp:param name="title" value="Learning Log | Product"/>
+    <jsp:param name="title" value="Pearl Skin | Product"/>
     <jsp:param name="cssFile" value="product"/>
 </jsp:include>
 
@@ -15,30 +15,33 @@
         <main class="content">
         <h2 class="page-title">Our Products</h2>
 
-        <div class="product-grid">
-            <c:forEach var="p" items="${products}" end="5">
-                <div class="product-card">
-                    <a href="product?action=details&id=${p.id}">
-                        <img src="${p.image}" alt="${p.name}">
-                    </a>
+            <div class="product-grid">
+                <c:if test="${not empty products}">
+                <c:forEach var="p" items="${products}" >
+                    <div class="product-card">
 
-                    <h3>${p.name}</h3>
-                    <p class="price">${p.price}</p>
+                        <a href="product?action=detail&id=${p.productId}">
+                            <img src="${pageContext.request.contextPath}/static/images/${p.image}"
+                                 alt="${p.productName}">
+                        </a>
 
-                    <form action="product" method="get">
-                        <input type="hidden" name="action" value="details">
-                        <input type="hidden" name="id" value="${p.id}">
-                        <button class="btn-outline">View Details</button>
-                    </form>
+                        <h3>${p.productName}</h3>
 
-                    <form action="product" method="post">
-                        <input type="hidden" name="action" value="addTocart">
-                        <input type="hidden" name="productId" value="${p.id}">
-                        <button class="btn-primary">Add To Cart </button>
-                    </form>
-                </div>
-            </c:forEach>
-        </div>
+                        <p class="price">${p.price}</p>
+
+                        <a href="product?action=detail&id=${p.productId}" class="btn-outline">
+                            View Details
+                        </a>
+
+                        <form action="product" method="post">
+                            <input type="hidden" name="action" value="addToCart">
+                            <input type="hidden" name="productId" value="${p.productId}">
+                            <button class="btn-primary">Add To Cart </button>
+                        </form>
+                    </div>
+                </c:forEach>
+                </c:if>
+            </div>
     </main>
 
          <%@ include file="/WEB-INF/templates/footer.html" %>

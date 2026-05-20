@@ -1,8 +1,12 @@
 package com.PearlSkin.utils;
 
+import com.PearlSkin.entity.OrderItem;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class SessionUtil {
 
@@ -33,4 +37,15 @@ public class SessionUtil {
             session.removeAttribute(key);
         }
     }
-}
+
+    public static List<OrderItem> getCart(HttpServletRequest request ) {
+        HttpSession session = request.getSession(true);
+            List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
+            if (cart == null){
+                cart = new ArrayList<>();
+                session.setAttribute("cart", cart);
+            }
+            return cart;
+        }
+
+    }
