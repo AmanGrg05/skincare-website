@@ -73,28 +73,28 @@
                         </select>
                     </div>
 
-                    <!-- Brand -->
-                    <div class="form-row">
-                        <label for="brand">Brand:</label>
-                        <input type="text" id="brand" name="brand"
-                               placeholder="Brand"
-                               value="<c:out value='${product.brand}' default='' />" />
-                    </div>
-
                     <!-- Price -->
                     <div class="form-row">
-                        <label for="price">Price (Rs.):</label>
-                        <input type="number" id="price" name="price"
-                               placeholder="0.00" step="0.01" min="0"
-                               value="<c:out value='${product.price}' default='' />" />
+                        <label for="price">Price:</label>
+                        <div class="input-prefix-group">
+                            <span class="input-prefix">Rs.</span>
+                            <input type="text" id="price" name="price"
+                                   placeholder="0.00"
+                                   inputmode="decimal"
+                                   value="<c:out value='${product.price}' default='' />" />
+                        </div>
                     </div>
 
                     <!-- Stock Quantity -->
                     <div class="form-row">
                         <label for="stockQuantity">Stock:</label>
-                        <input type="number" id="stockQuantity" name="stockQuantity"
-                               placeholder="0" min="0"
-                               value="<c:out value='${product.stockQuantity}' default='' />" />
+                        <div class="input-prefix-group">
+                            <span class="input-prefix">Qty</span>
+                            <input type="text" id="stockQuantity" name="stockQuantity"
+                                   placeholder="0"
+                                   inputmode="numeric"
+                                   value="<c:out value='${product.stockQuantity}' default='' />" />
+                        </div>
                     </div>
 
                     <!-- Skin Concern -->

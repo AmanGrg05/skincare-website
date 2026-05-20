@@ -219,3 +219,38 @@
         gap: 8px;
     }
 }
+
+/* ================= PREFIX INPUT GROUP (Price / Stock) ================= */
+
+.product-form-page .input-prefix-group {
+    display: flex;
+    flex: 1;
+    border: 1px solid #E8DED4;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.product-form-page .input-prefix {
+    padding: 9px 12px;
+    background-color: #FAF7F2;
+    border-right: 1px solid #E8DED4;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6B6763;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.product-form-page .input-prefix-group input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #2B2B2B;
+    background-color: #fff;
+    box-sizing: border-box;
+}
