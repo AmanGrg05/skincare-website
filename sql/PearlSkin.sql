@@ -129,7 +129,7 @@ INSERT INTO Category (CategoryName, Description) VALUES
                                                      ('Cleanser','Cleansers'),
                                                      ('Sunscreen','Sunscreens');
 INSERT INTO Product
-(ProductName, Description, Price, StockQuantity, CategoryName, Brand, ExpiryDate, Ingredients, SkinConcern, Image)
+(ProductName, Description, Price, StockQuantity, CategoryName, , ExpiryDate, Ingredients, SkinConcern, Image)
 VALUES
     (
         'PearlSkin Radiance Serum',
@@ -137,7 +137,6 @@ VALUES
         1299.99,
         50,
         'Serum',
-        'PearlSkin',
         '2027-12-31',
         'Pearl Extract, Hyaluronic Acid, Niacinamide',
         'Dullness',
@@ -149,7 +148,6 @@ VALUES
         999.99,
         40,
         'Eye Care',
-        'PearlSkin',
         '2027-10-15',
         'Pearl Extract, Peptides, Niacinamide',
         'Dark Circles',
@@ -161,7 +159,6 @@ VALUES
         899.99,
         60,
         'Facial Mist',
-        'PearlSkin',
         '2027-09-20',
         'Pearl Extract, Rose Water, Hyaluronic Acid',
         'Dryness',
@@ -173,7 +170,6 @@ VALUES
         1499.99,
         35,
         'Moisturizer',
-        'PearlSkin',
         '2027-11-30',
         'Shea Butter, Pearl Extract, Vitamin E',
         'Dry Skin',
@@ -185,7 +181,6 @@ VALUES
         799.99,
         70,
         'Cleanser',
-        'PearlSkin',
         '2027-07-18',
         'Chamomile Extract, Aloe Vera, Pearl Extract',
         'Sensitive Skin',
