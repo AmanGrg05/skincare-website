@@ -28,6 +28,6 @@
         </ul>
     </nav>
     <div class="sidebar-footer">
-        <a href="#" class="logout-btn">Logout</a>
+        <a href="${pageContext.request.contextPath}/logout" class="logout-btn" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
     </div>
 </aside>
