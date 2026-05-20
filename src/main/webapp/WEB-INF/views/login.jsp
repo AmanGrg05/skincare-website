@@ -33,10 +33,10 @@
 
                 <div class="input-group">
                     <label>Email</label>
-                    <input type="text"
-                           name="username"
+                    <input type="email"
+                           name="email"
                            placeholder="Enter your email"
-                           value="<c:out value='${param.username}' default='${cookie.username.value}' />"
+                           value="<c:out value='${param.email}' default='${cookie.username.value}' />"
                            required />
                 </div>
 
