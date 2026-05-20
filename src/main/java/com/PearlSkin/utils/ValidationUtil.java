@@ -16,9 +16,13 @@ public class ValidationUtil {
         return email!= null && Pattern.matches(emailRegex, email);
     }
 
-    public static boolean isValidPhoneNumber(String PhoneNumber){
+    public static boolean isValidPhoneNumber(String phoneNumber){
+        if (phoneNumber == null) return false;
+
+        phoneNumber = phoneNumber.trim().replaceAll("\\s+", "");
+
         String numberRegex = "^\\+?[0-9]{10,15}$";
-        return PhoneNumber!= null && Pattern.matches(numberRegex, PhoneNumber);
+        return Pattern.matches(numberRegex, phoneNumber);
     }
 
     public static boolean isValidPassword(String password){

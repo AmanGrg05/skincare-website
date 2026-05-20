@@ -30,10 +30,10 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String Email = request.getParameter("email");
-        String PasswordHash = request.getParameter("password");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
 
-        User user = userDao.findByName(Email);
+        User user = userDao.findByEmail(email);
 
         if (user == null) {
             request.setAttribute("error", "Invalid Email or password");
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
-        if (!PasswordUtil.checkPassword(PasswordHash, user.getPasswordHash())) {
+        if (!PasswordUtil.checkPassword(password, user.getPasswordHash())) {
             request.setAttribute("error", "Passwords don't match");
             request.getRequestDispatcher("/WEB-INF/views/login.jsp")
                     .forward(request, response);

@@ -6,22 +6,22 @@
     <nav class="sidebar-nav">
         <ul>
             <li class="active">
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/dashboard">
                     Dashboard
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/product?action=adminList">
                     Products
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/order?action=adminList">
                     Orders
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="${pageContext.request.contextPath}/user?action=adminList">
                     Customers
                 </a>
             </li>

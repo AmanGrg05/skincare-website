@@ -1,0 +1,244 @@
+/* ================= CONTENT AREA ================= */
+.main-content {
+    margin-left: 240px !important;
+    flex: 1;
+    padding: 0;
+    min-height: 100vh;
+}
+.product-page .content {
+    padding: 28px 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ================= CONTENT HEADER ================= */
+
+.product-page .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.product-page .content-header h3 {
+    font-size: 17px;
+    color: #2B2B2B;
+    font-weight: 700;
+}
+
+.product-page .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* ================= SEARCH ================= */
+
+.product-page .search-group {
+    display: flex;
+    gap: 0;
+    border: 1px solid #E8DED4;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.product-page .search-group input {
+    padding: 9px 14px;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    background-color: #fff;
+    color: #2B2B2B;
+    width: 220px;
+    font-family: inherit;
+}
+
+.product-page .search-group button {
+    padding: 9px 16px;
+    border: none;
+    border-left: 1px solid #E8DED4;
+    background: #FAF7F2;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5C4033;
+    font-family: inherit;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.product-page .search-group button:hover {
+    background-color: #5C4033;
+    color: #fff;
+}
+
+/* ================= ADD PRODUCT BUTTON ================= */
+
+.product-page .addProductBtn {
+    display: inline-block;
+    text-decoration: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    border: 1px solid #5C4033;
+    color: #5C4033;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.product-page .addProductBtn:hover {
+    background-color: #5C4033;
+    color: #fff;
+}
+
+/* ================= TABLE WRAPPER ================= */
+
+.product-page .tableWrapper {
+    background-color: #fff;
+    border: 1px solid #E8DED4;
+    border-radius: 12px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* ================= TABLE ================= */
+
+.product-page .productTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.product-page .productTable th {
+    text-align: left;
+    padding: 11px 14px;
+    background-color: #FAF7F2;
+    color: #6B6763;
+    font-weight: 600;
+    font-size: 12px;
+    border-bottom: 1px solid #E8DED4;
+    white-space: nowrap;
+}
+
+.product-page .productTable td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #F5F0EB;
+    color: #2B2B2B;
+    vertical-align: middle;
+}
+
+.product-page .productTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.product-page .productTable tbody tr:hover {
+    background-color: #FAF7F2;
+}
+
+/* ================= PRODUCT NAME CELL ================= */
+
+.product-page .productNameCell {
+    font-weight: 600;
+    color: #2B2B2B;
+    min-width: 140px;
+}
+
+/* ================= EMPTY ROW ================= */
+
+.product-page .emptyRow {
+    text-align: left;
+    color: #6B6763;
+    padding: 20px 14px;
+    font-size: 13px;
+}
+
+/* ================= ACTION BUTTONS ================= */
+
+.product-page .actionsCell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.product-page .deleteForm {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.product-page .editBtn,
+.product-page .deleteBtn {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    padding: 6px 14px;
+    border-radius: 5px;
+    border: 1px solid #5C4033;
+    color: #5C4033;
+    background: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.product-page .editBtn:hover {
+    background-color: #5C4033;
+    color: #fff;
+}
+
+.product-page .deleteBtn:hover {
+    background-color: #7A5645;
+    border-color: #7A5645;
+    color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .product-page .tableWrapper {
+        overflow-x: auto;
+    }
+
+    .product-page .productTable {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .product-page .content {
+        padding: 20px 16px;
+    }
+
+    .product-page .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .product-page .header-actions {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .product-page .search-group {
+        width: 100%;
+    }
+
+    .product-page .search-group input {
+        flex: 1;
+        width: auto;
+    }
+
+    .product-page .addProductBtn {
+        width: 100%;
+        text-align: center;
+    }
+}

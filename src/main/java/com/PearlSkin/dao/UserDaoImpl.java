@@ -28,7 +28,7 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO users (Name, Email, PasswordHash, PhoneNumber) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO users (name, email, passwordHash, phoneNumber) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
@@ -55,14 +55,14 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 return new User(
-                        rs.getInt("UserId"),
-                        rs.getString("Name"),
-                        rs.getString("Email"),
-                        rs.getString("PasswordHash"),
-                        rs.getString("PhoneNumber"),
-                        rs.getString("Address"),
-                        rs.getString("SkinType"),
-                        rs.getTimestamp("RegistrationDate"),
+                        rs.getInt("userId"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("passwordHash"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("skinType"),
+                        rs.getTimestamp("registrationDate"),
                         rs.getBoolean("isAdmin")
                 );
             }
@@ -85,14 +85,14 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()){
                 return new User(
-                        rs.getInt("UserId"),
-                        rs.getString("Name"),
-                        rs.getString("Email"),
-                        rs.getString("PasswordHash"),
-                        rs.getString("PhoneNumber"),
-                        rs.getString("Address"),
-                        rs.getString("SkinType"),
-                        rs.getTimestamp("RegistrationDate"),
+                        rs.getInt("userId"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("passwordHash"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("skinType"),
+                        rs.getTimestamp("registrationDate"),
                         rs.getBoolean("isAdmin")
                 );
             }
@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE users SET Name = ?, Email = ?, PasswordHash = ?, PhoneNumber = ? WHERE UserId = ?";
+            String sql = "UPDATE users SET name = ?, email = ?, passwordHash = ?, phoneNumber = ? WHERE userId = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
@@ -135,7 +135,7 @@ public class UserDaoImpl implements UserDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "DELETE FROM users WHERE UserId = ?";
+            String sql = "DELETE FROM users WHERE userId = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             int rowsDeleted = statement.executeUpdate(); //Checks whether the operation actually worked
@@ -157,7 +157,7 @@ public class UserDaoImpl implements UserDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT COUNT(*) FROM User WHERE Role = 'CUSTOMER'";
+            String sql = "SELECT COUNT(*) FROM users WHERE isAdmin = FALSE";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();

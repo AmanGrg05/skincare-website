@@ -26,29 +26,29 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Name = request.getParameter("Name");
-        String Email = request.getParameter("Email");
-        String PasswordHash = request.getParameter("PasswordHash");
-        String PhoneNumber = request.getParameter("PhoneNumber");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
         String confirmPassword = request.getParameter("confirmPassword");
 
         StringBuilder errors = new StringBuilder();
 
-        if (ValidationUtil.isNullOrEmpty(Name)
-                || !ValidationUtil.isAlphanumericStartingWithLetter(Name)
-                || Name.length() < 4) {
+        if (ValidationUtil.isNullOrEmpty(name)
+                || !ValidationUtil.isAlphanumericStartingWithLetter(name)
+                || name.length() < 4) {
             errors.append("Name should be alphanumeric, starting with letter and be atleast 4 characters. ");
         }
-        if (!ValidationUtil.isValidEmail(Email)) {
+        if (!ValidationUtil.isValidEmail(email)) {
             errors.append("Email should be in valid format. ");
         }
-        if (!ValidationUtil.isValidPhoneNumber(PhoneNumber)) {
+        if (!ValidationUtil.isValidPhoneNumber(phoneNumber)) {
             errors.append("Phone number should be in valid format. ");
         }
-        if (!ValidationUtil.isValidPassword(PasswordHash)) {
+        if (!ValidationUtil.isValidPassword(password)) {
             errors.append("Password must be 7+ characters with uppercase, atleast 1 number and symbol. ");
         }
-        if (!ValidationUtil.doPasswordsMatch(PasswordHash, confirmPassword)) {
+        if (!ValidationUtil.doPasswordsMatch(password, confirmPassword)) {
             errors.append("Passwords do not match. ");
         }
 
@@ -58,8 +58,8 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        String hashedPassword = PasswordUtil.getHashPassword(PasswordHash);
-        User user = new User(Name, Email, hashedPassword, PhoneNumber);
+        String hashedPassword = PasswordUtil.getHashPassword(password);
+        User user = new User(name, email, hashedPassword, phoneNumber);
 
         boolean success = userDao.addUser(user);
 
