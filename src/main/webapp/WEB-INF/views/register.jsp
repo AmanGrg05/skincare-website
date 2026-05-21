@@ -100,7 +100,7 @@
 
     <!-- RIGHT SECTION -->
     <div class="register-right">
-        <img src="${pageContext.request.contextPath}/static/images/.png"
+        <img src="${pageContext.request.contextPath}/static/images/cleanser.png"
              alt="Register Illustration" />
     </div>
 
