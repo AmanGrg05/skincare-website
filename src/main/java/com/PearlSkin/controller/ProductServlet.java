@@ -1,9 +1,7 @@
 package com.PearlSkin.controller;
 
-import com.PearlSkin.dao.OrderDao;
-import com.PearlSkin.dao.OrderDaoImpl;
-import com.PearlSkin.dao.ProductDao;
-import com.PearlSkin.dao.ProductDaoImpl;
+import com.PearlSkin.dao.*;
+import com.PearlSkin.entity.Category;
 import com.PearlSkin.entity.OrderItem;
 import com.PearlSkin.entity.Product;
 import com.PearlSkin.utils.SessionUtil;
@@ -97,7 +95,10 @@ public class ProductServlet extends HttpServlet {
         String action = request.getParameter("action");
         //Add product
         if ("add".equals(action)) {
+            CategoryDao categoryDao = new CategoryDaoImpl();
+            List<Category> categories = categoryDao.getAllCategories();
 
+            request.setAttribute("categories", categories);
             String productName =
                     request.getParameter("productName");
 
@@ -165,7 +166,10 @@ public class ProductServlet extends HttpServlet {
         }
         //Edit product
         else if ("edit".equals(action)) {
+            CategoryDao categoryDao = new CategoryDaoImpl();
+            List<Category> categories = categoryDao.getAllCategories();
 
+            request.setAttribute("categories", categories);
             int productId =
                     Integer.parseInt(
                             request.getParameter("productid"));

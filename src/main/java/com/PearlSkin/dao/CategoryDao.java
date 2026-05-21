@@ -2,6 +2,8 @@ package com.PearlSkin.dao;
 
 import com.PearlSkin.entity.Category;
 
+import java.util.List;
+
 /**
  * Data Access Object (DAO) interface for Category-related database operations.
  *
@@ -49,5 +51,7 @@ public interface CategoryDao {
      * @return true if the deletion is successful; false otherwise
      * @throws RuntimeException if a database access error occurs
      */
-    boolean deleteCategory(int id);
+
+    List<Category> getAllCategories();
+    boolean deleteCategory(String categoryName);
 }
