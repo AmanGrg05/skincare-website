@@ -71,7 +71,7 @@
 
                                 <option value="${cat.categoryName}"
 
-                                        <c:if test="${cat.categoryName == product.categoryName}">
+                                        <c:if test="${not empty product and cat.categoryName == product.categoryName}">
                                             selected
                                         </c:if>>
 

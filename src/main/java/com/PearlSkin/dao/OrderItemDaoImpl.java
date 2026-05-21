@@ -97,7 +97,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
                         rs.getInt("orderId"),
                         rs.getString("name"),
                         rs.getString("productName"),
-                        rs.getDouble("totalAmount")
+                        rs.getDouble("subtotal")
                 );
 
                 recentOrders.add(order);

@@ -69,7 +69,10 @@ public class ProductServlet extends HttpServlet {
 
         // ADD PRODUCT PAGE
         else if (action.equals("new")) {
+            CategoryDao categoryDao = new CategoryDaoImpl();
+            List<Category> categories = categoryDao.getAllCategories();
 
+            request.setAttribute("categories", categories);
             request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
                     .forward(request, response);
         }else if (action.equals("edit")) {
@@ -79,7 +82,10 @@ public class ProductServlet extends HttpServlet {
 
             Product product =
                     productDao.getProductById(productId);
+            CategoryDao categoryDao = new CategoryDaoImpl();
+            List<Category> categories = categoryDao.getAllCategories();
 
+            request.setAttribute("categories", categories);
             request.setAttribute("product", product);
 
             request.getRequestDispatcher(
@@ -95,10 +101,7 @@ public class ProductServlet extends HttpServlet {
         String action = request.getParameter("action");
         //Add product
         if ("add".equals(action)) {
-            CategoryDao categoryDao = new CategoryDaoImpl();
-            List<Category> categories = categoryDao.getAllCategories();
 
-            request.setAttribute("categories", categories);
             String productName =
                     request.getParameter("productName");
 
