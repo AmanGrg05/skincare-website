@@ -164,11 +164,11 @@
                     grandTotal += total;
         %>
         <div class="cart-item">
-            <img src="<%=request.getContextPath()%>/static/images/<%=p.getImage()%>">
+            <img src="<%=request.getContextPath()%>/uploads/<%=p.getImage()%>">
             <div class="cart-info">
                 <h2><%=p.getProductName()%></h2>
                 <p><%=p.getDescription()%></p>
-                <div class="cart-price">$ <%=p.getPrice()%></div>
+                <div class="cart-price">Rs <%=p.getPrice()%></div>
                 <div class="qty">Quantity: <%=item.getQuantity()%></div>
             </div>
         </div>
@@ -196,7 +196,7 @@
         <h2>Checkout</h2>
         <div class="summary-row">
             <span>Total</span>
-            <strong>$ <%=grandTotal%></strong>
+            <strong>Rs <%=grandTotal%></strong>
         </div>
 
         <form action="product" method="post">

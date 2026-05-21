@@ -21,7 +21,7 @@
                     <div class="product-card">
 
                         <a href="product?action=detail&id=${p.productId}">
-                            <img src="${pageContext.request.contextPath}/static/images/${p.image}"
+                            <img src="${pageContext.request.contextPath}/uploads/${product.image}"
                                  alt="${p.productName}">
                         </a>
 

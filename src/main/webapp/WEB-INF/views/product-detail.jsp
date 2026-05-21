@@ -75,7 +75,7 @@
 
     <div class="details-wrapper">
         <div class="details-left">
-            <img src="${pageContext.request.contextPath}/static/images/${product.image}" class="details-main">
+            <img src="${pageContext.request.contextPath}/uploads/${product.image}" class="details-main">
         </div>
 
         <div class="details-right">
