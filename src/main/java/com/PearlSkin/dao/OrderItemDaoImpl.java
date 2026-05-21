@@ -18,7 +18,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT SUM(TotalAmount) FROM OrderItem";
+            String sql = "SELECT SUM(subtotal) FROM orderitems";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -46,7 +46,7 @@ public class OrderItemDaoImpl implements OrderItemDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT COUNT(DISTINCT OrderID) FROM OrderItem";
+            String sql = "SELECT COUNT(DISTINCT orderId) FROM orderitems";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -74,15 +74,15 @@ public class OrderItemDaoImpl implements OrderItemDao {
             conn = DatabaseConnection.getConnection();
 
             String sql = """
-                SELECT o.OrderID,
-                       u.FullName,
-                       p.ProductName,
-                       oi.TotalAmount
-                FROM Orders o
-                JOIN User u ON o.UserID = u.UserID
-                JOIN OrderItem oi ON o.OrderID = oi.OrderID
-                JOIN Product p ON oi.ProductID = p.ProductID
-                ORDER BY o.OrderID DESC
+                SELECT o.orderId,
+                       u.name,
+                       p.productName,
+                       oi.subtotal
+                FROM orders o
+                JOIN users u ON o.userId = u.userId
+                JOIN orderitems oi ON o.orderId = oi.orderId
+                JOIN products p ON oi.productId = p.productId
+                ORDER BY o.orderId DESC
                 LIMIT ?
             """;
 

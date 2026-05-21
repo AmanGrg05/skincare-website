@@ -25,7 +25,11 @@ import jakarta.servlet.http.Part;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-@MultipartConfig
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2,
+        maxFileSize       = 1024 * 1024 * 10,
+        maxRequestSize    = 1024 * 1024 * 50
+)
 @WebServlet("/product")
 public class ProductServlet extends HttpServlet {
     private final ProductDao productDao = new ProductDaoImpl();

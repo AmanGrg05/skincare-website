@@ -75,7 +75,7 @@ public class OrderDaoImpl implements OrderDao {
                     DatabaseConnection.getConnection();
 
             String sql = """
-                    INSERT INTO orderItems
+                    INSERT INTO orderitems
                     (orderId, productId,
                      quantity, unitPrice,
                      subtotal)

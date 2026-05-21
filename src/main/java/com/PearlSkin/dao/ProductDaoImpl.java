@@ -25,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
         Connection conn = null;
         try{
             conn = DatabaseConnection.getConnection();
-            String sql = "INSERT INTO Product " +
+            String sql = "INSERT INTO products " +
                     "(productName, description, price, stockQuantity, " +
                     "categoryName, expiryDate, ingredients, skinConcern, Image)" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -58,7 +58,7 @@ public class ProductDaoImpl implements ProductDao {
             Connection conn = null;
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM Product";
+                String sql = "SELECT * FROM products";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -95,7 +95,7 @@ public class ProductDaoImpl implements ProductDao {
                     DatabaseConnection.getConnection();
 
             String sql = """
-            UPDATE Product
+            UPDATE products
             SET productName = ?,
                 description = ?,
                 price = ?,
@@ -105,7 +105,7 @@ public class ProductDaoImpl implements ProductDao {
                 ingredients = ?,
                 skinConcern = ?,
                 Image = ?
-            WHERE productID = ?
+            WHERE productId = ?
         """;
 
             PreparedStatement ps =
@@ -165,7 +165,7 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "DELETE FROM Product WHERE productId = ?";
+                String sql = "DELETE FROM products WHERE productId = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, id);
                 ps.executeUpdate();
@@ -184,14 +184,14 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM Product WHERE productId = ?";
+                String sql = "SELECT * FROM products WHERE productId = ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, id);
                 ResultSet rs = ps.executeQuery();
 
                 if (rs.next()) {
                     return new Product(
-                            rs.getInt("productID"),
+                            rs.getInt("productId"),
                             rs.getString("categoryName"),
                             rs.getString("productName"),
                             rs.getBigDecimal("price"),
@@ -217,13 +217,13 @@ public class ProductDaoImpl implements ProductDao {
 
             try {
                 conn = DatabaseConnection.getConnection();
-                String sql = "SELECT * FROM Product WHERE productName LIKE ?";
+                String sql = "SELECT * FROM products WHERE productName LIKE ?";
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setString(1, "%" + name +"%");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     Product product = new Product(
-                            rs.getInt("productID"),
+                            rs.getInt("productId"),
                             rs.getString("categoryName"),
                             rs.getString("productName"),
                             rs.getBigDecimal("price"),
@@ -252,7 +252,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT * FROM Product LIMIT 3";
+            String sql = "SELECT * FROM products LIMIT 3";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
@@ -260,7 +260,7 @@ public class ProductDaoImpl implements ProductDao {
             while (rs.next()) {
 
                 Product product = new Product(
-                        rs.getInt("productID"),
+                        rs.getInt("productId"),
                         rs.getString("categoryName"),
                         rs.getString("productName"),
                         rs.getBigDecimal("price"),
@@ -292,7 +292,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT COUNT(*) FROM Product";
+            String sql = "SELECT COUNT(*) FROM products";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -324,9 +324,9 @@ public class ProductDaoImpl implements ProductDao {
                 SELECT p.productName,
                        SUM(oi.quantity) AS total_sold,
                        SUM(oi.quantity * oi.unitPrice) AS revenue
-                FROM Product p
-                JOIN orderItems oi ON p.productID = oi.productID
-                GROUP BY p.productID, p.productName
+                FROM products p
+                JOIN orderItems oi ON p.productID = oi.productId
+                GROUP BY p.productId, p.productName
                 ORDER BY total_sold DESC
                 LIMIT ?
             """;
@@ -363,7 +363,7 @@ public class ProductDaoImpl implements ProductDao {
 
         try {
             conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE Product SET stockQuantity = stockQuantity - ? WHERE productID = ? AND stockQuantity >= ?";
+            String sql = "UPDATE products SET stockQuantity = stockQuantity - ? WHERE productId = ? AND stockQuantity >= ?";
             PreparedStatement ps = conn.prepareStatement(sql);{
                 ps.setInt(1, stockQuantity);
                 ps.setInt(2, productId);
