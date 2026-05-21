@@ -80,7 +80,7 @@
 
                     <!-- IMAGE SECTION (matches .product-img CSS) -->
                     <div class="product-img">
-                        <img src="images/products/<c:out value='${product.image}'/>"
+                        <img src="${pageContext.request.contextPath}/uploads/${product.image} "
                              alt="<c:out value='${product.productName}'/>">
                     </div>
 

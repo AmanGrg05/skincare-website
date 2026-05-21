@@ -94,10 +94,10 @@ public class OrderItemDaoImpl implements OrderItemDao {
             while (rs.next()) {
 
                 RecentOrder order = new RecentOrder(
-                        rs.getInt("OrderID"),
-                        rs.getString("FullName"),
-                        rs.getString("ProductName"),
-                        rs.getDouble("TotalAmount")
+                        rs.getInt("orderId"),
+                        rs.getString("name"),
+                        rs.getString("productName"),
+                        rs.getDouble("totalAmount")
                 );
 
                 recentOrders.add(order);
