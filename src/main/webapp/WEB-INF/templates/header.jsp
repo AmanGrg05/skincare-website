@@ -5,9 +5,9 @@
     </div>
     <nav>
         <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">Product</a></li>
-            <li><a href="">About us</a></li>
+            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/product">Product</a></li>
+            <li><a href="${pageContext.request.contextPath}/static/html/aboutus.html">About us</a></li>
         </ul>
     </nav>
 

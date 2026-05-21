@@ -20,7 +20,7 @@
                     <h4>Elevate your glow</h4>
                     <p>Discover skincare that brings out
                         <br>your natural radiance</p>
-                    <a href="" class="button">Shop now &rarr;</a>
+                    <a href="${pageContext.request.contextPath}/product" class="button">Shop now &rarr;</a>
                 </div>
             </div>
             <div class="right-section">
@@ -33,7 +33,7 @@
                     <div class="best-seller-text">
                         <h3>Glow with care</h3>
                         <p>Gentle formulas for every skin type</p>
-                        <a href="" class="button">BUY NOW</a>
+                        <a href="${pageContext.request.contextPath}/product" class="button">View Collection</a>
                     </div>
                     <div class="best-seller-image">
                         <img src="${pageContext.request.contextPath}/static/images/best-seller-left-section.png" alt="" height="300px" width="300px">
@@ -43,7 +43,7 @@
                     <div class="best-seller-text">
                         <h3>Your glow start here</h3>
                         <p>Clean. Safe. Effective</p>
-                        <a href="" class="button">BUY NOW</a>
+                        <a href="${pageContext.request.contextPath}/production" class="button">View Collection</a>
                     </div>
                     <div class="best-seller-image">
                         <img src="${pageContext.request.contextPath}/static/images/best-seller-right-section.png" alt="" height="250px" width="300px">
@@ -59,7 +59,7 @@
 
                     <h3>Healthy skin is <br> always in</h3>
                     <p>Simple. Nature. Effective.</p>
-                    <a href="" class="button">EXPLORE COLLECTION</a>
+                    <a href="${pageContext.request.contextPath}/products" class="button">EXPLORE COLLECTION</a>
                 </div>
                 <div class="promotional-banner-right">
                     <img src="${pageContext.request.contextPath}/static/images/test.png" alt="">
@@ -80,7 +80,7 @@
 
                     <!-- IMAGE SECTION (matches .product-img CSS) -->
                     <div class="product-img">
-                        <img src="${pageContext.request.contextPath}/uploads/${product.image} "
+                        <img src="${pageContext.request.contextPath}/uploads/${product.image}"
                              alt="<c:out value='${product.productName}'/>">
                     </div>
 
