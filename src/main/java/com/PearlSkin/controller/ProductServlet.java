@@ -1,5 +1,7 @@
 package com.PearlSkin.controller;
 
+import com.PearlSkin.dao.OrderDao;
+import com.PearlSkin.dao.OrderDaoImpl;
 import com.PearlSkin.dao.ProductDao;
 import com.PearlSkin.dao.ProductDaoImpl;
 import com.PearlSkin.entity.OrderItem;
@@ -16,11 +18,17 @@ import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.PearlSkin.utils.ImageUtil;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.Part;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 
+@MultipartConfig
 @WebServlet("/product")
 public class ProductServlet extends HttpServlet {
-    private ProductDao productDao = new ProductDaoImpl();
+    private final ProductDao productDao = new ProductDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -62,6 +70,19 @@ public class ProductServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
                     .forward(request, response);
+        }else if (action.equals("edit")) {
+
+            int productId = Integer.parseInt(
+                    request.getParameter("productid"));
+
+            Product product =
+                    productDao.getProductById(productId);
+
+            request.setAttribute("product", product);
+
+            request.getRequestDispatcher(
+                            "/WEB-INF/views/product-add-edit.jsp")
+                    .forward(request, response);
         }
     }
 
@@ -70,12 +91,199 @@ public class ProductServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        if ("addToCart".equals(action) || "buyNow".equals(action)) {
+        //Add product
+        if ("add".equals(action)) {
+
+            String productName =
+                    request.getParameter("productName");
+
+            String categoryName =
+                    request.getParameter("categoryName");
+
+            BigDecimal price =
+                    new BigDecimal(
+                            request.getParameter("price"));
+
+            int stockQuantity =
+                    Integer.parseInt(
+                            request.getParameter("stockQuantity"));
+
+            String skinConcern =
+                    request.getParameter("skinConcern");
+
+            String ingredients =
+                    request.getParameter("ingredients");
+
+            Date expiryDate =
+                    Date.valueOf(
+                            request.getParameter("expiryDate"));
+
+            String description =
+                    request.getParameter("description");
+
+            Part imagePart =
+                    request.getPart("image");
+
+            String image =
+                    ImageUtil.uploadImage(imagePart);
+
+            Product product = new Product(
+                    categoryName,
+                    productName,
+                    price,
+                    stockQuantity,
+                    skinConcern,
+                    ingredients,
+                    expiryDate,
+                    description,
+                    image
+            );
+
+            boolean success =
+                    productDao.insertProduct(product);
+
+            if (success) {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/product?action=adminList");
+
+            } else {
+
+                request.setAttribute(
+                        "error",
+                        "Failed to add product.");
+
+                request.getRequestDispatcher(
+                                "/WEB-INF/views/product-add-edit.jsp")
+                        .forward(request, response);
+            }
+        }
+        //Edit product
+        else if ("edit".equals(action)) {
+
+            int productId =
+                    Integer.parseInt(
+                            request.getParameter("productid"));
+
+            Product existing =
+                    productDao.getProductById(productId);
+
+            String productName =
+                    request.getParameter("productName");
+
+            String categoryName =
+                    request.getParameter("categoryName");
+
+            BigDecimal price =
+                    new BigDecimal(
+                            request.getParameter("price"));
+
+            int stockQuantity =
+                    Integer.parseInt(
+                            request.getParameter("stockQuantity"));
+
+            String skinConcern =
+                    request.getParameter("skinConcern");
+
+            String ingredients =
+                    request.getParameter("ingredients");
+
+            Date expiryDate =
+                    Date.valueOf(
+                            request.getParameter("expiryDate"));
+
+            String description =
+                    request.getParameter("description");
+
+            Part imagePart =
+                    request.getPart("image");
+
+            String image =
+                    existing.getImage();
+
+            if (imagePart != null
+                    && imagePart.getSize() > 0) {
+
+                String newImage =
+                        ImageUtil.uploadImage(imagePart);
+
+                if (newImage != null) {
+
+                    ImageUtil.deleteImage(
+                            existing.getImage());
+
+                    image = newImage;
+                }
+            }
+
+            Product updated = new Product(
+                    productId,
+                    categoryName,
+                    productName,
+                    price,
+                    stockQuantity,
+                    skinConcern,
+                    ingredients,
+                    expiryDate,
+                    description,
+                    image
+            );
+
+            boolean success =
+                    productDao.updateProduct(updated);
+
+            if (success) {
+
+                response.sendRedirect(
+                        request.getContextPath()
+                                + "/product?action=adminList");
+
+            } else {
+
+                request.setAttribute(
+                        "error",
+                        "Failed to update product.");
+
+                request.setAttribute(
+                        "product",
+                        updated);
+
+                request.getRequestDispatcher(
+                                "/WEB-INF/views/product-add-edit.jsp")
+                        .forward(request, response);
+            }
+        }
+        //delete product
+        else if ("delete".equals(action)) {
+
+            int productId =
+                    Integer.parseInt(
+                            request.getParameter("productid"));
+
+            Product product =
+                    productDao.getProductById(productId);
+
+            if (product != null) {
+
+                ImageUtil.deleteImage(
+                        product.getImage());
+
+                productDao.deleteProduct(productId);
+            }
+
+            response.sendRedirect(
+                    request.getContextPath()
+                            + "/product?action=adminList");
+        }
+
+
+        else if ("addToCart".equals(action) || "buyNow".equals(action)) {
             int productId = Integer.parseInt(request.getParameter("productId"));
             Product product = productDao.getProductById(productId);
 
             // stock check
-            if (product.getStockQuantity() <= 0) {
+            if (product.getStockQuantity() <= 0 || product == null) {
                 response.sendRedirect(request.getContextPath()
                         + "/product?action=detail&id=" + productId
                 );
@@ -117,6 +325,7 @@ public class ProductServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
                         .forward(request, response);
             }
+
         }
     }
 }

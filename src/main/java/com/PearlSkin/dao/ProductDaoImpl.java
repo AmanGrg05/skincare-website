@@ -86,26 +86,77 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
         public boolean updateProduct (Product product) {
-            Connection conn = null;
 
-            try {
-                conn = DatabaseConnection.getConnection();
-                String sql = "UPDATE Product SET productName = ?, description = ?, " +
-                        "price = ?, stockQuantity = ? WHERE productID = ?";
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ps.setString(1, product.getProductName());
-                ps.setString(2, product.getDescription());
-                ps.setBigDecimal(3, product.getPrice());
-                ps.setInt(4, product.getStockQuantity());
-                ps.setInt(5, product.getProductId());
-                ps.executeUpdate();
-                return true;
-            } catch (SQLException e) {
-                System.out.println("Error in updating product" + e.getMessage());
-                return false;
-            } finally {
-                DatabaseConnection.closeConnection(conn);
-            }
+        Connection conn = null;
+
+        try {
+
+            conn =
+                    DatabaseConnection.getConnection();
+
+            String sql = """
+            UPDATE Product
+            SET productName = ?,
+                description = ?,
+                price = ?,
+                stockQuantity = ?,
+                categoryName = ?,
+                expiryDate = ?,
+                ingredients = ?,
+                skinConcern = ?,
+                Image = ?
+            WHERE productID = ?
+        """;
+
+            PreparedStatement ps =
+                    conn.prepareStatement(sql);
+
+            ps.setString(1,
+                    product.getProductName());
+
+            ps.setString(2,
+                    product.getDescription());
+
+            ps.setBigDecimal(3,
+                    product.getPrice());
+
+            ps.setInt(4,
+                    product.getStockQuantity());
+
+            ps.setString(5,
+                    product.getCategoryName());
+
+            ps.setDate(6,
+                    product.getExpiryDate());
+
+            ps.setString(7,
+                    product.getIngredients());
+
+            ps.setString(8,
+                    product.getSkinConcern());
+
+            ps.setString(9,
+                    product.getImage());
+
+            ps.setInt(10,
+                    product.getProductId());
+
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "Error updating product "
+                            + e.getMessage());
+
+            return false;
+
+        } finally {
+
+            DatabaseConnection.closeConnection(conn);
+        }
         }
 
     @Override
@@ -201,7 +252,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT * FROM Product";
+            String sql = "SELECT * FROM Product LIMIT 3";
 
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
