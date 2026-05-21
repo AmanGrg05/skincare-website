@@ -60,7 +60,7 @@ CREATE TABLE products (
                          created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                          updated_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-                         FOREIGN KEY (categoryName) REFERENCES category(categoryName)
+                         FOREIGN KEY (categoryName) REFERENCES categories(categoryName)
                              ON DELETE CASCADE
                              ON UPDATE CASCADE
 );
@@ -97,7 +97,7 @@ CREATE TABLE orderItems (
                            FOREIGN KEY (orderId) REFERENCES orders(orderId)
                                ON DELETE CASCADE,
 
-                           FOREIGN KEY (productId) REFERENCES Product(productId)
+                           FOREIGN KEY (productId) REFERENCES products(productId)
                                ON DELETE CASCADE,
 
                            UNIQUE (orderId, productId)
