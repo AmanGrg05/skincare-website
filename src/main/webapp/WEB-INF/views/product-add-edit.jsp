@@ -61,15 +61,26 @@
 
                     <!-- Category -->
                     <div class="form-row">
-                        <label for="categoryId">Category:</label>
-                        <select id="categoryId" name="categoryId">
+                        <label for="categoryName">Category:</label>
+
+                        <select id="categoryName" name="categoryName">
+
                             <option value="">-- Select Category --</option>
+
                             <c:forEach var="cat" items="${categories}">
-                                <option value="${cat.categoryId}"
-                                        <c:if test="${cat.categoryId == product.categoryId}">selected</c:if>>
+
+                                <option value="${cat.categoryName}"
+
+                                        <c:if test="${cat.categoryName == product.categoryName}">
+                                            selected
+                                        </c:if>>
+
                                     <c:out value="${cat.categoryName}" />
+
                                 </option>
+
                             </c:forEach>
+
                         </select>
                     </div>
 
