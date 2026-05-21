@@ -183,51 +183,31 @@ public class ProductServlet extends HttpServlet {
             String productName =
                     request.getParameter("productName");
 
-            String categoryName =
-                    request.getParameter("categoryName");
+            String categoryName = request.getParameter("categoryName");
 
-            BigDecimal price =
-                    new BigDecimal(
-                            request.getParameter("price"));
+            BigDecimal price = new BigDecimal(request.getParameter("price"));
 
-            int stockQuantity =
-                    Integer.parseInt(
-                            request.getParameter("stockQuantity"));
+            int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity"));
 
-            String skinConcern =
-                    request.getParameter("skinConcern");
+            String skinConcern = request.getParameter("skinConcern");
 
-            String ingredients =
-                    request.getParameter("ingredients");
+            String ingredients = request.getParameter("ingredients");
 
-            Date expiryDate =
-                    Date.valueOf(
-                            request.getParameter("expiryDate"));
+            Date expiryDate = Date.valueOf(request.getParameter("expiryDate"));
 
-            String description =
-                    request.getParameter("description");
+            String description = request.getParameter("description");
 
-            Part imagePart =
-                    request.getPart("image");
+            Part imagePart = request.getPart("image");
 
-            String image =
-                    existing.getImage();
+            String image = existing.getImage();
 
-            if (imagePart != null
-                    && imagePart.getSize() > 0) {
-
-                String newImage =
-                        ImageUtil.uploadImage(imagePart);
-
+            if (imagePart != null && imagePart.getSize() > 0) {
+                String newImage = ImageUtil.uploadImage(imagePart);
                 if (newImage != null) {
-
-                    ImageUtil.deleteImage(
-                            existing.getImage());
-
+                    ImageUtil.deleteImage(existing.getImage());
                     image = newImage;
                 }
             }
-
             Product updated = new Product(
                     productId,
                     categoryName,
@@ -241,69 +221,39 @@ public class ProductServlet extends HttpServlet {
                     image
             );
 
-            boolean success =
-                    productDao.updateProduct(updated);
+            boolean success = productDao.updateProduct(updated);
 
             if (success) {
-
-                response.sendRedirect(
-                        request.getContextPath()
-                                + "/product?action=adminList");
-
+                response.sendRedirect(request.getContextPath() + "/product?action=adminList");
             } else {
+                request.setAttribute("error", "Failed to update product.");
 
-                request.setAttribute(
-                        "error",
-                        "Failed to update product.");
+                request.setAttribute("product", updated);
 
-                request.setAttribute(
-                        "product",
-                        updated);
-
-                request.getRequestDispatcher(
-                                "/WEB-INF/views/product-add-edit.jsp")
-                        .forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp").forward(request, response);
             }
         }
         //delete product
         else if ("delete".equals(action)) {
-
-            int productId =
-                    Integer.parseInt(
-                            request.getParameter("productid"));
-
-            Product product =
-                    productDao.getProductById(productId);
-
+            int productId = Integer.parseInt(request.getParameter("productid"));
+            Product product = productDao.getProductById(productId);
             if (product != null) {
-
-                ImageUtil.deleteImage(
-                        product.getImage());
-
+                ImageUtil.deleteImage(product.getImage());
                 productDao.deleteProduct(productId);
             }
-
-            response.sendRedirect(
-                    request.getContextPath()
-                            + "/product?action=adminList");
+            response.sendRedirect(request.getContextPath() + "/product?action=adminList");
         }
-
-
         else if ("addToCart".equals(action) || "buyNow".equals(action)) {
             int productId = Integer.parseInt(request.getParameter("productId"));
             Product product = productDao.getProductById(productId);
-
             // stock check
             if (product.getStockQuantity() <= 0 || product == null) {
-                response.sendRedirect(request.getContextPath()
-                        + "/product?action=detail&id=" + productId
+                response.sendRedirect(request.getContextPath() + "/product?action=detail&id=" + productId
                 );
                 return;
             }
-
             List<OrderItem> cart = SessionUtil.getCart(request);
             boolean found = false;
-
             for (OrderItem item : cart) {
                 if (item.getProductId() == productId) {
                     item.setQuantity(item.getQuantity() + 1);
@@ -311,21 +261,17 @@ public class ProductServlet extends HttpServlet {
                     break;
                 }
             }
-
             if (!found) {
                 OrderItem item = new OrderItem(0, productId, 1, product.getPrice());
                 cart.add(item);
             }
-
             request.getSession().setAttribute("cart", cart);
-
             // Redirect after add/buy
             if ("addToCart".equals(action)) {
                 response.sendRedirect(request.getContextPath() + "/product?action=cart");
             } else {
                 response.sendRedirect(request.getContextPath() + "/product?action=cart&checkout=true");
             }
-
             if ("placeOrder".equals(action)) {
                 String fullname = request.getParameter("fullname");
                 String phone = request.getParameter("phone");
@@ -336,7 +282,6 @@ public class ProductServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/views/cart.jsp")
                         .forward(request, response);
             }
-
         }
     }
 }
