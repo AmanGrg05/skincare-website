@@ -199,7 +199,7 @@
             <strong>Rs <%=grandTotal%></strong>
         </div>
 
-        <form action="product" method="post">
+        <form action="${pageContext.request.contextPath}/cart" method="post">
             <input type="hidden" name="action" value="placeOrder">
             <input type="text" name="fullname" placeholder="Full Name" required>
             <input type="text" name="phone" placeholder="Phone Number" required>

@@ -99,9 +99,14 @@
                             Rs. <c:out value="${product.price}" />
                         </p>
 
-                        <button class="add-to-cart">
-                            ADD TO CART &#128722;
-                        </button>
+                        <form action="${pageContext.request.contextPath}/product" method="post">
+                            <input type="hidden" name="action" value="buyNow">
+                            <input type="hidden" name="productId" value="${product.productId}">
+
+                            <button type="submit" class="add-to-cart">
+                                BUY NOW
+                            </button>
+                        </form>
 
                     </div>
 
