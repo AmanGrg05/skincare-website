@@ -43,7 +43,7 @@
                     <div class="best-seller-text">
                         <h3>Your glow start here</h3>
                         <p>Clean. Safe. Effective</p>
-                        <a href="${pageContext.request.contextPath}/production" class="button">View Collection</a>
+                        <a href="${pageContext.request.contextPath}/product" class="button">View Collection</a>
                     </div>
                     <div class="best-seller-image">
                         <img src="${pageContext.request.contextPath}/static/images/best-seller-right-section.png" alt="" height="250px" width="300px">
@@ -59,7 +59,7 @@
 
                     <h3>Healthy skin is <br> always in</h3>
                     <p>Simple. Nature. Effective.</p>
-                    <a href="${pageContext.request.contextPath}/products" class="button">EXPLORE COLLECTION</a>
+                    <a href="${pageContext.request.contextPath}/product" class="button">EXPLORE COLLECTION</a>
                 </div>
                 <div class="promotional-banner-right">
                     <img src="${pageContext.request.contextPath}/static/images/test.png" alt="">
@@ -103,7 +103,7 @@
                             <input type="hidden" name="action" value="buyNow">
                             <input type="hidden" name="productId" value="${product.productId}">
 
-                            <button type="submit" class="add-to-cart">
+                            <button type="submit" class="buy-now">
                                 BUY NOW
                             </button>
                         </form>

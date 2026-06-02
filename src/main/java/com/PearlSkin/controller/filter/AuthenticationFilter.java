@@ -1,13 +1,9 @@
-
 package com.PearlSkin.controller.filter;
 
+import com.PearlSkin.entity.User;
 import com.PearlSkin.utils.SessionUtil;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,45 +24,57 @@ public class AuthenticationFilter implements Filter {
         String contextPath = req.getContextPath();
         String path = uri.substring(contextPath.length());
 
-        //Allow Static files
-        if (path.startsWith("/static/")) {
+        // Allow static resources
+        if (path.startsWith("/static/") ||
+                path.startsWith("/uploads/") ||
+                path.startsWith("/css/") ||
+                path.startsWith("/js/") ||
+                path.startsWith("/images/")) {
+
             chain.doFilter(request, response);
             return;
         }
 
-        boolean isLoggedIn = SessionUtil.getAttribute(req, "user") != null;
+        // Get user from session
+        User user = (User) SessionUtil.getAttribute(req, "user");
 
-        Boolean isAdmin = (Boolean) SessionUtil.getAttribute(req, "isAdmin");
-        if (isAdmin == null) isAdmin = false;
+        boolean isLoggedIn = user != null;
+        boolean isAdmin = isLoggedIn && user.isAdmin();
 
+        // Public pages
+        boolean isPublic =
+                "/".equals(path) ||
+                        "/home".equals(path) ||
+                        "/login".equals(path) ||
+                        "/register".equals(path) ||
+                        "/aboutUs".equals(path);
 
-        boolean isUser = "/".equals(path)
-                || "/home".equals(path)
-                || "/login".equals(path)
-                || "/aboutUs".equals(path)
-                || "/register".equals(path);
+        // Auth pages
+        boolean isAuthPage =
+                "/login".equals(path) ||
+                        "/register".equals(path);
 
-        boolean isAuthPage = "/login".equals(path)
-                || "/register".equals(path);
+        // Admin-only page
+        boolean isDashboard = "/dashboard".equals(path);
 
-        boolean isAdminPage = "/admin".equals(path);
-
-        //Not logged in
-        if (!isLoggedIn && !isUser){
+        // Block protected pages for guests
+        if (!isLoggedIn && !isPublic) {
             resp.sendRedirect(contextPath + "/login");
             return;
         }
 
-        //Already logged in
+        // Prevent logged-in users from accessing login/register
         if (isLoggedIn && isAuthPage) {
-            resp.sendRedirect(contextPath + "/dashboard");
+            resp.sendRedirect(contextPath + "/home");
             return;
         }
 
-        if (!isAdmin && isAdminPage) {
-            resp.sendRedirect(contextPath + "/dashboard");
+        // ADMIN ONLY ACCESS for dashboard
+        if (isDashboard && !isAdmin) {
+            resp.sendRedirect(contextPath + "/home");
             return;
         }
+
         chain.doFilter(request, response);
     }
 }

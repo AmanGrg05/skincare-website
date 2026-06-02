@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
         }
 
         SessionUtil.setAttribute(request, "user", user);
-        SessionUtil.setAttribute(request, "isAdmin", user.isAdmin());
         CookieUtil.addCookie(response, "username", user.getName(), 24*60*60);
 
         if (user.isAdmin()) {
