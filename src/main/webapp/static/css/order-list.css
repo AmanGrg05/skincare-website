@@ -1,0 +1,126 @@
+.main-content {
+    margin-left: 240px !important;
+    flex: 1;
+    padding: 0;
+    min-height: 100vh;
+}
+/* ================= ORDER PAGE WRAPPER ================= */
+
+.order-page .content {
+    padding: 28px 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ================= SECTION HEADER ================= */
+
+.order-page .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.order-page .section-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2B2B2B;
+}
+
+/* ================= TABLE WRAPPER ================= */
+
+.order-page .recent-orders {
+    background: #fff;
+}
+
+/* ================= TABLE ================= */
+
+.order-page .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: #fff;
+    border: 1px solid #E8DED4;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* HEADER */
+
+.order-page .orders-table thead th {
+    text-align: left;
+    padding: 12px 14px;
+    background-color: #FAF7F2;
+    color: #6B6763;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #E8DED4;
+    white-space: nowrap;
+}
+
+/* ROWS */
+
+.order-page .orders-table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #F5F0EB;
+    color: #2B2B2B;
+    vertical-align: middle;
+}
+
+.order-page .orders-table tbody tr:hover {
+    background-color: #FAF7F2;
+}
+
+/* LAST ROW BORDER REMOVE */
+
+.order-page .orders-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.order-page .emptyRow {
+    padding: 20px;
+    color: #6B6763;
+    font-size: 13px;
+}
+
+/* ================= ORDER ID STYLE ================= */
+
+.order-page .orders-table td:first-child {
+    font-weight: 600;
+    color: #2B2B2B;
+}
+
+/* ================= AMOUNT STYLE ================= */
+
+.order-page .orders-table td:last-child {
+    font-weight: 600;
+    color: #5C4033;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+
+    .order-page .orders-table {
+        min-width: 700px;
+    }
+
+    .order-page .recent-orders {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .order-page .content {
+        padding: 20px 16px;
+    }
+
+    .order-page .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}

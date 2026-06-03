@@ -2,9 +2,11 @@ package com.PearlSkin.dao;
 
 import com.PearlSkin.entity.Order;
 import com.PearlSkin.entity.OrderItem;
+import com.PearlSkin.entity.RecentOrder;
 import com.PearlSkin.utils.DatabaseConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -110,6 +112,45 @@ public class OrderDaoImpl implements OrderDao {
 
             DatabaseConnection.closeConnection(conn);
         }
+    }
+
+    @Override
+    public ArrayList<RecentOrder> getAllOrders() {
+
+        ArrayList<RecentOrder> list = new ArrayList<>();
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+
+            String sql =
+                    "SELECT o.orderId, u.name, p.productName, oi.subtotal " +
+                            "FROM orders o " +
+                            "JOIN users u ON o.userId = u.userId " +
+                            "JOIN orderitems oi ON o.orderId = oi.orderId " +
+                            "JOIN products p ON oi.productId = p.productId " +
+                            "ORDER BY o.orderId DESC";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new RecentOrder(
+                        rs.getInt("orderId"),
+                        rs.getString("name"),
+                        rs.getString("productName"),
+                        rs.getDouble("subtotal")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("getAllOrders ERROR: " + e.getMessage());
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        return list;
     }
 
     /**
