@@ -87,7 +87,9 @@
             this.Email = Email;
         }
 
-
+        public void setAdmin(boolean admin) {
+            isAdmin = admin;
+        }
         public void setPasswordHash(String PasswordHash) {
             this.PasswordHash = PasswordHash;
         }

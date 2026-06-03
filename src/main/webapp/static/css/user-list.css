@@ -1,4 +1,11 @@
 /* ================= USER PAGE WRAPPER ================= */
+/* ================= CONTENT AREA ================= */
+.main-content {
+    margin-left: 240px !important;
+    flex: 1;
+    padding: 0;
+    min-height: 100vh;
+}
 
 .user-page .content {
     padding: 28px 32px;
@@ -27,6 +34,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 /* ================= SEARCH ================= */
@@ -42,8 +50,11 @@
     padding: 9px 14px;
     border: none;
     outline: none;
-    width: 240px;
     font-size: 13px;
+    background-color: #fff;
+    color: #2B2B2B;
+    width: 220px;
+    font-family: inherit;
 }
 
 .user-page .search-group button {

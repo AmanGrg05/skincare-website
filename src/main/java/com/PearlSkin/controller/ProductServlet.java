@@ -34,7 +34,7 @@ public class ProductServlet extends HttpServlet {
 
         String action = request.getParameter("action");
 
-        if (action == null || action.equals("list") || action.equals("search")) {
+        if (action == null || action.equals("list")) {
 
             ArrayList<Product> products = productDao.getAllProducts();
             request.setAttribute("products", products);
@@ -84,7 +84,7 @@ public class ProductServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
                     .forward(request, response);
-        }else if ("search".equals(action)) {
+        } if ("search".equals(action)) {
 
             String keyword = request.getParameter("search");
 
@@ -101,6 +101,7 @@ public class ProductServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
                     .forward(request, response);
+            return;
         }
     }
 

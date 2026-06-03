@@ -98,12 +98,14 @@
                   <td>${user.skinType}</td>
 
                   <td>
-                                        <span class="role-badge ${user.isAdmin ? 'admin' : 'customer'}">
-                                            <c:choose>
-                                              <c:when test="${user.isAdmin}">Admin</c:when>
-                                              <c:otherwise>Customer</c:otherwise>
-                                            </c:choose>
-                                        </span>
+                    <c:choose>
+                      <c:when test="${user.admin}">
+                        <span class="role-badge admin">Admin</span>
+                      </c:when>
+                      <c:otherwise>
+                        <span class="role-badge customer">Customer</span>
+                      </c:otherwise>
+                    </c:choose>
                   </td>
 
                   <td>
