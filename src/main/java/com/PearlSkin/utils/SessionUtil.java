@@ -38,14 +38,18 @@ public class SessionUtil {
         }
     }
 
-    public static List<OrderItem> getCart(HttpServletRequest request ) {
-        HttpSession session = request.getSession(true);
-            List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
-            if (cart == null){
-                cart = new ArrayList<>();
-                session.setAttribute("cart", cart);
-            }
-            return cart;
+
+    public static List<OrderItem> getCart(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+
+        List<OrderItem> cart = (List<OrderItem>) session.getAttribute("cart");
+
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
         }
 
+        return cart;
+    }
     }

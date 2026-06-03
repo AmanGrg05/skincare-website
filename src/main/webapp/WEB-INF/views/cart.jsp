@@ -199,12 +199,12 @@
             <strong>Rs <%=grandTotal%></strong>
         </div>
 
-        <form action="${pageContext.request.contextPath}/cart" method="post">
-            <input type="hidden" name="action" value="placeOrder">
-            <input type="text" name="fullname" placeholder="Full Name" required>
-            <input type="text" name="phone" placeholder="Phone Number" required>
-            <textarea name="address" rows="4" placeholder="Shipping Address" required></textarea>
-            <button class="place-btn">Pay to confirm order</button>
+        <form method="post" action="${pageContext.request.contextPath}/cart">
+            <input type="hidden" name="action" value="placeOrder"/>
+            <input type="text"   name="fullname"  placeholder="Full name"       required/>
+            <input type="text"   name="phone"     placeholder="Phone number"    required/>
+            <input type="text"   name="address"   placeholder="Shipping address" required/>
+            <button type="submit">Pay to confirm order</button>
         </form>
     </div>
 </div>

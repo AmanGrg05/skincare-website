@@ -9,9 +9,8 @@ import com.PearlSkin.utils.SessionUtil;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.*;
+
 import java.io.IOException;
 
 @WebServlet("/login")
@@ -35,22 +34,18 @@ public class LoginServlet extends HttpServlet {
 
         User user = userDao.findByEmail(email);
 
-        if (user == null) {
-            request.setAttribute("error", "Invalid Email or password");
+        if (user == null || !PasswordUtil.checkPassword(password, user.getPasswordHash())) {
+            request.setAttribute("error", "Invalid email or password");
             request.getRequestDispatcher("/WEB-INF/views/login.jsp")
                     .forward(request, response);
             return;
         }
 
-        if (!PasswordUtil.checkPassword(password, user.getPasswordHash())) {
-            request.setAttribute("error", "Passwords don't match");
-            request.getRequestDispatcher("/WEB-INF/views/login.jsp")
-                    .forward(request, response);
-            return;
-        }
 
         SessionUtil.setAttribute(request, "user", user);
-        CookieUtil.addCookie(response, "username", user.getName(), 24*60*60);
+        SessionUtil.setAttribute(request, "userId", user.getUserId());
+
+        CookieUtil.addCookie(response, "username", user.getName(), 24 * 60 * 60);
 
         if (user.isAdmin()) {
             response.sendRedirect(request.getContextPath() + "/dashboard");

@@ -2,6 +2,8 @@ package com.PearlSkin.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 
@@ -11,14 +13,19 @@ public class Order {
     private BigDecimal totalAmount;
     private String orderStatus;
     private String shippingAddress;
+    private List<OrderItem> items = new ArrayList<>();
+
+    public Order() {
+        this.orderStatus = "PENDING";
+    }
 
     // Constructor for creating new order
     public Order(int userId, BigDecimal totalAmount,
-                 String orderStatus, String shippingAddress) {
+                  String shippingAddress) {
 
         this.userId = userId;
         this.totalAmount = totalAmount;
-        this.orderStatus = orderStatus;
+        this.orderStatus = "PENDING";
         this.shippingAddress = shippingAddress;
     }
 
@@ -60,6 +67,10 @@ public class Order {
         return shippingAddress;
     }
 
+    public List<OrderItem> getItems()
+    {
+        return items;
+    }
     // Setters
     public void setOrderId(int orderId) {
         this.orderId = orderId;
@@ -81,6 +92,10 @@ public class Order {
         this.shippingAddress = shippingAddress;
     }
 
+    public void setItems(List<OrderItem> items)
+    {
+        this.items = items;
+    }
     @Override
     public String toString() {
         return "[Order ID: " + orderId +
