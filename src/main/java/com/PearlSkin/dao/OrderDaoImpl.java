@@ -8,11 +8,12 @@ import java.sql.*;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
+    private final ProductDao productDao = new ProductDaoImpl();
 
     /**
      * Inserts the order header and all its items in a single transaction
      * on one shared Connection — the same pattern UserDaoImpl uses.
-     *
+     * <p>
      * Root cause of the original bug: the old code opened two separate
      * connections (one in createOrder, one in insertOrderItems). If the
      * second connection hit the UNIQUE KEY violation on (orderId, productId)
@@ -22,7 +23,6 @@ public class OrderDaoImpl implements OrderDao {
      * @return new orderId on success, -1 on any failure.
      */
     @Override
-
     public int createOrder(Order order) {
 
         Connection conn = null;
@@ -31,6 +31,7 @@ public class OrderDaoImpl implements OrderDao {
             conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
+            // 1. Insert order header
             String sql =
                     "INSERT INTO orders (userId, totalAmount, shippingAddress, orderStatus) " +
                             "VALUES (?, ?, ?, ?)";
@@ -54,6 +55,7 @@ public class OrderDaoImpl implements OrderDao {
 
             int orderId = rs.getInt(1);
 
+            // 2. Insert order items
             String itemSql =
                     "INSERT INTO orderitems (orderId, productId, quantity, unitPrice, subtotal) " +
                             "VALUES (?, ?, ?, ?, ?)";
@@ -62,16 +64,32 @@ public class OrderDaoImpl implements OrderDao {
 
             for (OrderItem item : order.getItems()) {
 
+                // insert item
                 itemPs.setInt(1, orderId);
                 itemPs.setInt(2, item.getProductId());
                 itemPs.setInt(3, item.getQuantity());
                 itemPs.setBigDecimal(4, item.getUnitPrice());
                 itemPs.setBigDecimal(5, item.getSubtotal());
-
                 itemPs.addBatch();
+
+                // reduce stock (IMPORTANT: inside transaction)
+                boolean reduced = productDao.reduceStock(
+                        conn,
+                        item.getProductId(),
+                        item.getQuantity()
+                );
+
+                if (!reduced) {
+                    conn.rollback();
+                    System.out.println("Stock not enough for productId: " + item.getProductId());
+                    return -1;
+                }
             }
 
+            // 3. Execute batch insert
             itemPs.executeBatch();
+
+            // 4. Commit ONLY ONCE (VERY IMPORTANT)
             conn.commit();
 
             return orderId;

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import com.PearlSkin.entity.User;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserDaoImpl implements UserDao {
@@ -175,6 +177,83 @@ public class UserDaoImpl implements UserDao {
 
         return count;
     }
+    public List<User> getAllUsers() {
 
+        List<User> users = new ArrayList<>();
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+
+            String sql = "SELECT * FROM users";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getInt("userId"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("passwordHash"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("skinType"),
+                        rs.getTimestamp("registrationDate"),
+                        rs.getBoolean("isAdmin")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error fetching users: " + e.getMessage());
+
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        return users;
+    }
+    public List<User> searchUsers(String keyword) {
+
+        List<User> users = new ArrayList<>();
+        Connection conn = null;
+
+        try {
+            conn = DatabaseConnection.getConnection();
+
+            String sql = "SELECT * FROM users " +
+                    "WHERE LOWER(name) LIKE ? OR LOWER(email) LIKE ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            String searchValue = "%" + keyword.toLowerCase() + "%";
+
+            ps.setString(1, searchValue);
+            ps.setString(2, searchValue);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                users.add(new User(
+                        rs.getInt("userId"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("passwordHash"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("address"),
+                        rs.getString("skinType"),
+                        rs.getTimestamp("registrationDate"),
+                        rs.getBoolean("isAdmin")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error searching users: " + e.getMessage());
+        } finally {
+            DatabaseConnection.closeConnection(conn);
+        }
+
+        return users;
+    }
 }
 

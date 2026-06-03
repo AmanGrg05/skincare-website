@@ -1,0 +1,175 @@
+/* ================= USER PAGE WRAPPER ================= */
+
+.user-page .content {
+    padding: 28px 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ================= HEADER ================= */
+
+.user-page .content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.user-page .content-header h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2B2B2B;
+}
+
+.user-page .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ================= SEARCH ================= */
+
+.user-page .search-group {
+    display: flex;
+    border: 1px solid #E8DED4;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.user-page .search-group input {
+    padding: 9px 14px;
+    border: none;
+    outline: none;
+    width: 240px;
+    font-size: 13px;
+}
+
+.user-page .search-group button {
+    padding: 9px 16px;
+    border: none;
+    background: #FAF7F2;
+    border-left: 1px solid #E8DED4;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #5C4033;
+}
+
+.user-page .search-group button:hover {
+    background: #5C4033;
+    color: #fff;
+}
+
+/* ================= TABLE ================= */
+
+.user-page .tableWrapper {
+    background: #fff;
+    border: 1px solid #E8DED4;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.user-page .dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.user-page .dataTable th {
+    background: #FAF7F2;
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 12px;
+    color: #6B6763;
+    border-bottom: 1px solid #E8DED4;
+}
+
+.user-page .dataTable td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #F5F0EB;
+    color: #2B2B2B;
+}
+
+.user-page .dataTable tbody tr:hover {
+    background: #FAF7F2;
+}
+
+/* ================= EMPTY ROW ================= */
+
+.user-page .emptyRow {
+    text-align: left;
+    padding: 20px;
+    color: #6B6763;
+}
+
+/* ================= ROLE BADGES ================= */
+
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.role-badge.admin {
+    background: #5C4033;
+    color: #fff;
+}
+
+.role-badge.customer {
+    background: #E8DED4;
+    color: #2B2B2B;
+}
+
+/* ================= ACTIONS ================= */
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.user-delete-btn {
+    padding: 6px 12px;
+    border: 1px solid #5C4033;
+    background: transparent;
+    color: #5C4033;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.user-delete-btn:hover {
+    background: #7A5645;
+    color: #fff;
+    border-color: #7A5645;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+    .user-page .tableWrapper {
+        overflow-x: auto;
+    }
+
+    .user-page .dataTable {
+        min-width: 700px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .user-page .content {
+        padding: 20px 16px;
+    }
+
+    .user-page .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .user-page .search-group input {
+        width: 100%;
+    }
+}

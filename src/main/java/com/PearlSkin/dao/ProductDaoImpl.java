@@ -358,25 +358,29 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public boolean reduceStock(int productId, int stockQuantity) {
-        Connection conn = null;
+    public boolean reduceStock(Connection conn, int productId, int stockQuantity) {
 
         try {
-            conn = DatabaseConnection.getConnection();
-            String sql = "UPDATE products SET stockQuantity = stockQuantity - ? WHERE productId = ? AND stockQuantity >= ?";
-            PreparedStatement ps = conn.prepareStatement(sql);{
-                ps.setInt(1, stockQuantity);
-                ps.setInt(2, productId);
-                ps.setInt(3, stockQuantity);
-                ps.executeUpdate();
-                return true;
-            }
-        } catch (SQLException e){
-            System.out.println("Error reducing stock: " + e.getMessage());
-        } finally {
-            DatabaseConnection.closeConnection(conn);
+            String sql =
+                    "UPDATE products " +
+                            "SET stockQuantity = stockQuantity - ? " +
+                            "WHERE productId = ? AND stockQuantity >= ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, stockQuantity);
+            ps.setInt(2, productId);
+            ps.setInt(3, stockQuantity);
+
+            int rows = ps.executeUpdate();
+
+            return rows > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
-        }
+    }
+
 }
 

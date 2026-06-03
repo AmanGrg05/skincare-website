@@ -2,6 +2,8 @@ package com.PearlSkin.dao;
 
 import com.PearlSkin.entity.User;
 
+import java.util.List;
+
 /**
  * Data Access Object (DAO) interface for managing User-related database operations.
  *
@@ -88,4 +90,6 @@ public interface UserDao {
      * @throws RuntimeException if a database access error occurs
      */
     boolean deleteUser(int id);
+    List<User> getAllUsers();
+    List<User> searchUsers(String keyword);
 }

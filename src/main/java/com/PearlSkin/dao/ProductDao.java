@@ -3,6 +3,7 @@ package com.PearlSkin.dao;
 import com.PearlSkin.entity.Product;
 import com.PearlSkin.entity.TopProduct;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public interface ProductDao {
@@ -15,5 +16,5 @@ public interface ProductDao {
     ArrayList<Product> getFeaturedProducts();
     int countProducts();
     ArrayList<TopProduct> getTopProducts(int limit);
-    boolean reduceStock(int productId, int StockQuantity);
+    boolean reduceStock(Connection conn, int productId, int stockQuantity);
 }

@@ -37,7 +37,7 @@
               <input type="text"
                      name="search"
                      placeholder="Search products..."
-                     value="<c:out value='${searchKeyword}' default='' />" />
+                     value="${searchKeyword}" />
               <button type="submit">Search</button>
             </div>
           </form>
