@@ -27,7 +27,7 @@ public class UserServlet extends HttpServlet {
             List<User> users = userDao.getAllUsers();
 
             request.setAttribute("users", users);
-
+            request.setAttribute("activePage", "user");
             request.getRequestDispatcher("/WEB-INF/views/user-list.jsp")
                     .forward(request, response);
         }else if ("search".equals(action)) {
@@ -44,7 +44,7 @@ public class UserServlet extends HttpServlet {
 
             request.setAttribute("users", users);
             request.setAttribute("searchKeyword", keyword);
-
+            request.setAttribute("activePage", "user");
             request.getRequestDispatcher("/WEB-INF/views/user-list.jsp")
                     .forward(request, response);
         }

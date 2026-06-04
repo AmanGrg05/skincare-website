@@ -25,7 +25,7 @@ public class DashboardServlet extends HttpServlet {
 
         request.setAttribute("recentOrders", orderItemDao.getRecentOrders(5));
         request.setAttribute("topProducts", productDao.getTopProducts(5));
-
+        request.setAttribute("activePage", "dashboard");
         request.getRequestDispatcher("/WEB-INF/views/admin-dashboard.jsp")
                 .forward(request, response);
     }

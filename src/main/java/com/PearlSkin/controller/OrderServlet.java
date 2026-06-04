@@ -30,6 +30,7 @@ public class OrderServlet extends HttpServlet {
             ArrayList<RecentOrder> orders = orderDao.getAllOrders();
 
             request.setAttribute("orders", orders);
+            request.setAttribute("activePage", "order");
 
             request.getRequestDispatcher("/WEB-INF/views/order-list.jsp")
                     .forward(request, response);

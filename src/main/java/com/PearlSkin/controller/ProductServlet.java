@@ -56,7 +56,7 @@ public class ProductServlet extends HttpServlet {
 
             ArrayList<Product> products = productDao.getAllProducts();
             request.setAttribute("products", products);
-
+            request.setAttribute("activePage", "product");
             request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
                     .forward(request, response);
 
@@ -66,7 +66,7 @@ public class ProductServlet extends HttpServlet {
             List<Category> categories = categoryDao.getAllCategories();
 
             request.setAttribute("categories", categories);
-
+            request.setAttribute("activePage", "product");
             request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
                     .forward(request, response);
 
@@ -81,7 +81,7 @@ public class ProductServlet extends HttpServlet {
 
             request.setAttribute("categories", categories);
             request.setAttribute("product", product);
-
+            request.setAttribute("activePage", "product");
             request.getRequestDispatcher("/WEB-INF/views/product-add-edit.jsp")
                     .forward(request, response);
         } if ("search".equals(action)) {
@@ -98,7 +98,7 @@ public class ProductServlet extends HttpServlet {
 
             request.setAttribute("products", products);
             request.setAttribute("searchKeyword", keyword);
-
+            request.setAttribute("activePage", "product");
             request.getRequestDispatcher("/WEB-INF/views/product-list.jsp")
                     .forward(request, response);
             return;

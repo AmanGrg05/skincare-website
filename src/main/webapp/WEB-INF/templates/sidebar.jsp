@@ -5,25 +5,20 @@
     </div>
     <nav class="sidebar-nav">
         <ul>
-            <li class="active">
-                <a href="${pageContext.request.contextPath}/dashboard">
-                    Dashboard
-                </a>
+            <li class="${activePage == 'dashboard' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/dashboard">Dashboard</a>
             </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/product?action=adminList">
-                    Products
-                </a>
+
+            <li class="${activePage == 'product' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/product?action=adminList">Products</a>
             </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/order?action=adminList">
-                    Orders
-                </a>
+
+            <li class="${activePage == 'order' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/order?action=adminList">Orders</a>
             </li>
-            <li>
-                <a href="${pageContext.request.contextPath}/user?action=adminList">
-                    Customers
-                </a>
+
+            <li class="${activePage == 'user' ? 'active' : ''}">
+                <a href="${pageContext.request.contextPath}/user?action=adminList">Customers</a>
             </li>
         </ul>
     </nav>
